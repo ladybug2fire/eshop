@@ -1,26 +1,18 @@
 <template>
   <div>
-      <div class="slide-container">
-        <slide :data="imgList"/>
-      </div>
-      <div class="card-container">
-        <h2 class="section-title">新秀菜谱</h2>
-        <food :list="list"/>
-      </div>
+    <mt-button size="small">small</mt-button>
+    <span class="iconfont">&#xe7f8;</span>
   </div>
 </template>
 
 <script>
-import MainHeader from '@/components/Header.vue'
-import Slide from '@/components/Slide.vue'
-import Food from '@/components/Food.vue'
-import {getList} from '@/api/food'
+// import MainHeader from '@/components/Header.vue'
+// import Slide from '@/components/Slide.vue'
+// import Food from '@/components/Food.vue'
+// import {getList} from '@/api/food'
 
   export default {
     components:{
-      MainHeader,
-      Slide,
-      Food,
     },
     data(){
       return {
@@ -34,17 +26,17 @@ import {getList} from '@/api/food'
     },
     methods:{
       getList(){
-        getList().then(res=>{
-          let data = res.data;
-          if(data.code === 200){
-            this.list.push(...data.data);
-          }
-        })
+        // getList().then(res=>{
+        //   let data = res.data;
+        //   if(data.code === 200){
+        //     this.list.push(...data.data);
+        //   }
+        // })
       }
     },
-    created(){
+    mounted(){
       console.log('get list')
-      this.getList();
+      // this.getList();
     }
   }
 </script>
