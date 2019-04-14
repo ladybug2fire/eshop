@@ -103,7 +103,7 @@ import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import myUpload from "@/components/UploadField.vue"
 import { addFood } from "@/api/food"
 import E from 'wangeditor'
-import {HOST} from '../../config/myconfig'
+import {HOST} from '@/config/myconfig'
 export default {
   components: {
     myBreadCrumb,

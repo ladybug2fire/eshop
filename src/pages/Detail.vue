@@ -67,7 +67,7 @@
 /**
  * 菜谱详情
  */
-import { HOST } from "../../config/myconfig";
+import { HOST } from "@/config/myconfig";
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import { getFood } from "@/api/food";
 import { publish, list } from "@/api/review";

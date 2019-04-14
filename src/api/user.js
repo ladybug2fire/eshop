@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {HOST} from '../../config/myconfig'
+import {HOST} from '@/config/myconfig'
 export const getUser = function () {
   return axios.get(`${HOST}/api/getuser`, {
     params: {

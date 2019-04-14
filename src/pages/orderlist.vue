@@ -20,7 +20,7 @@
 
 <script>
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
-import { HOST } from "../../config/myconfig";
+import { HOST } from "@/config/myconfig";
 import { list } from "@/api/order";
 export default {
   components: {

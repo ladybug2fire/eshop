@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {HOST} from '../../config/myconfig'
+import {HOST} from '@/config/myconfig'
 export const addFood = function (params) {
   return axios.post(`${HOST}/api/menu/addfood`, params)
 }

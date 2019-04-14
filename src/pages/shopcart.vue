@@ -36,7 +36,7 @@
  */
 import GoodItem from "@/components/good/GoodItem";
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
-import { HOST } from "../../config/myconfig";
+import { HOST } from "@/config/myconfig";
 import { buy } from "@/api/order";
 import _ from "lodash";
 export default {

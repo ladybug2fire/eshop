@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {HOST} from '../../config/myconfig'
+import {HOST} from '@/config/myconfig'
 
 // 我的订单
 export const list = function (params) {
