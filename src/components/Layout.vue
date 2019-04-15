@@ -48,7 +48,6 @@ export default {
   overflow: scroll;
   position: fixed;
   top: 0;
-  background: #f8f8f8;
 }
 .mint-tabbar > .mint-tab-item.is-selected {
     background-color: #eaeaea;

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <good-item></good-item>
+  <div class="home">
+    <side-tabs></side-tabs>
   </div>
 </template>
 
@@ -9,10 +9,10 @@
 // import Slide from '@/components/Slide.vue'
 // import Food from '@/components/Food.vue'
 // import {getList} from '@/api/food'
-import GoodItem from '@/components/good/GoodItem'
+import SideTabs from '@/components/good/SideTabs'
   export default {
     components:{
-      GoodItem,
+      SideTabs
     },
     data(){
       return {
@@ -42,13 +42,8 @@ import GoodItem from '@/components/good/GoodItem'
 </script>
 
 <style lang="less" scoped>
-.card-container{
-    .section-title{
-        color: #c0ae7d;
-    }
-}
-.slide-container{
-    margin-top: 10px;
-    padding: 0 20px;
+.home{
+  width: 100%;
+  height: 100%;
 }
 </style>

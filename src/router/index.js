@@ -13,7 +13,6 @@ import FavorDetail from '@/pages/favordetail'
 import Shop from '@/pages/shop'
 import MenusList from '@/pages/menulist'
 import ShopCart from '@/pages/shopcart'
-import store from '@/stores/index'
 Vue.use(Router)
 
 export default new Router({
@@ -28,14 +27,6 @@ export default new Router({
       },
       children: [
         {
-          path: 'login',
-          name: 'login',
-          component: Login
-        }, {
-          path: 'register',
-          name: 'register',
-          component: Register
-        }, {
           path: 'home',
           name: 'home',
           component: Home
@@ -77,6 +68,15 @@ export default new Router({
           component: ShopCart
         }
       ]
-    }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    }, {
+      path: '/register',
+      name: 'register',
+      component: Register
+    }, 
   ]
 })
