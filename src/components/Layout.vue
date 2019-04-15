@@ -41,11 +41,14 @@ export default {
 
 <style lang="less" scoped>
 .main-section{
-  padding: 0 20px;
+  width: 100vw;
+  box-sizing: border-box;
+  // padding: 0 20px;
   height: calc(~'100vh - 55px');
   overflow: scroll;
   position: fixed;
   top: 0;
+  background: #f8f8f8;
 }
 .mint-tabbar > .mint-tab-item.is-selected {
     background-color: #eaeaea;

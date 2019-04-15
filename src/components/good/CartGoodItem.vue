@@ -56,7 +56,7 @@ export default {
 @sub-color: #8395a7;
 .good-item {
   display: flex;
-  padding: 10px 0;
+  padding: 10px 20px;
   .checkbox-info{
       display: flex;
       align-items: center;
