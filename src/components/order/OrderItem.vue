@@ -38,14 +38,14 @@
         background: #f8f8f8;
         border-radius: 10px;
         height: 80px;
-        margin: 0 10px;
+        margin: 0 20px;
         display: flex;
         flex-direction: row;
         align-items: center;
         .img-list{
             display: flex;
             flex-direction: row;
-            padding: 10px;
+            padding: 10px 20px;
             overflow-x: scroll;
             width: calc(~'100% - 100px');
             img{
@@ -64,7 +64,7 @@
         }
     }
     .price{
-        padding: 10px;
+        padding: 10px 20px;
         font-size: 10px;
         display: flex;
         align-items: center;
@@ -82,7 +82,7 @@
         }
     }
     .header{
-        padding: 5px 10px;
+        padding: 5px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -96,7 +96,7 @@
     }
     .footer{
         box-sizing: border-box;
-        padding: 5px 10px;
+        padding: 5px 20px;
         background-color: #f8f8f8;
         width: 100vw;
         display: flex;
