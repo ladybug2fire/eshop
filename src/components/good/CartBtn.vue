@@ -41,10 +41,10 @@
     background-color: white;
     border: 1px solid #c8d6e5;
     border-radius: 4px;
-    &:hover{
-        background: @theme-color;
-        color: white;
-    }
+    // &:hover{
+    //     background: @theme-color;
+    //     color: white;
+    // }
     .cart-badge{
         position: absolute;
         right: 0;
