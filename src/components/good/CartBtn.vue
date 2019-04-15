@@ -1,8 +1,9 @@
 <template>
-    <div class="fixed-cart" @click="jumpCart" v-if="username">
-        <el-badge :value="goodcount" class="item-badge">
-            <i class="el-icon-goods icon-btn"></i>
-        </el-badge>
+    <div class="fixed-cart" @click="jumpCart">
+        <mt-badge type="error" class="cart-badge">
+            {{goodcount}}
+        </mt-badge>
+        <i class="iconfont icon-gouwuche"></i>
     </div>
 </template>
 
@@ -25,23 +26,34 @@
 </script>
 
 <style lang="less" scoped>
-@theme-color: #B4010F;
+@theme-color: #1dd1a1;
 .fixed-cart{
     position: fixed;
-    bottom: 200px;
+    bottom: 100px;
     right: 20px;
-    .icon-btn{
-        cursor: pointer;
-        font-size: 20px;
-        padding: 10px;
-        color: @theme-color;
-        background-color: white;
-        border: 1px solid @theme-color;
-        border-radius: 4px;
-        &:hover{
-            background: @theme-color;
-            color: white;
-        }
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 10px;
+    color: #c8d6e5;
+    background-color: white;
+    border: 1px solid #c8d6e5;
+    border-radius: 4px;
+    &:hover{
+        background: @theme-color;
+        color: white;
+    }
+    .cart-badge{
+        position: absolute;
+        right: 0;
+        top: 0;
+        max-width:20px; 
+        text-overflow:ellipsis; 
+        overflow:hidden;
+        border: 3px solid white;
+        transform: translate(50%, -50%)
     }
 }
 </style>

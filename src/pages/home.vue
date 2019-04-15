@@ -1,7 +1,6 @@
 <template>
   <div>
-    <mt-button size="small">small</mt-button>
-    <span class="iconfont">&#xe7f8;</span>
+    <good-item></good-item>
   </div>
 </template>
 
@@ -10,9 +9,10 @@
 // import Slide from '@/components/Slide.vue'
 // import Food from '@/components/Food.vue'
 // import {getList} from '@/api/food'
-
+import GoodItem from '@/components/good/GoodItem'
   export default {
     components:{
+      GoodItem,
     },
     data(){
       return {

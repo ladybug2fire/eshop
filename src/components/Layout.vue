@@ -1,12 +1,11 @@
 <template>
-  <div>
-      <mt-tabbar v-model="selected">
-        <mt-tab-item :id="item.label" v-for="item in tabs" :key="item.label">
-          <div slot="icon" :class="['iconfont', `icon-${selected === item.label ? item.active : item.inactive}`]"></div>
-          {{item.label}}
-        </mt-tab-item>
-      </mt-tabbar>
-      {{selected}}
+  <div class="layout-tab">
+    <mt-tabbar v-model="selected">
+      <mt-tab-item :id="item.label" v-for="item in tabs" :key="item.label">
+        <div slot="icon" :class="['iconfont', `icon-${selected === item.label ? item.active : item.inactive}`]"></div>
+        {{item.label}}
+      </mt-tab-item>
+    </mt-tabbar>
     <div class="main-section">
       <router-view/>
     </div>
@@ -42,11 +41,17 @@ export default {
 
 <style lang="less" scoped>
 .main-section{
-  padding: 0 10vw;
-  padding-bottom: 50px;
+  padding: 0 20px;
+  height: calc(~'100vh - 55px');
+  overflow: scroll;
+  position: fixed;
+  top: 0;
 }
 .mint-tabbar > .mint-tab-item.is-selected {
     background-color: #eaeaea;
-    color: #1dd1a1;
+    color: #00d2d3;
+}
+.layout-tab .iconfont{
+  font-size: 20px;
 }
 </style>
