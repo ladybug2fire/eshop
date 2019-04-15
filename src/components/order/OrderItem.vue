@@ -37,7 +37,7 @@
     .container{
         background: #f8f8f8;
         border-radius: 10px;
-        height: 100px;
+        height: 80px;
         margin: 0 10px;
         display: flex;
         flex-direction: row;
@@ -49,8 +49,8 @@
             overflow-x: scroll;
             width: calc(~'100% - 100px');
             img{
-                height: 80px;
-                width: 80px;
+                height: 60px;
+                width: 60px;
                 border-radius: 10px;
                 background-color: white;
                 margin-right: 10px;

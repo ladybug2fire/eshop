@@ -13,6 +13,7 @@ import FavorDetail from '@/pages/favordetail'
 import Shop from '@/pages/shop'
 import MenusList from '@/pages/menulist'
 import ShopCart from '@/pages/shopcart'
+import Order from '@/components/order/OrderItem'
 Vue.use(Router)
 
 export default new Router({
@@ -66,6 +67,10 @@ export default new Router({
           path: 'shopcart',
           name: '购物车',
           component: ShopCart
+        }, {
+          path: 'order',
+          name: '购物车',
+          component: Order
         }
       ]
     },
