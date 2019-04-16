@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <side-tabs></side-tabs>
+    <star />
   </div>
 </template>
 
@@ -12,7 +13,7 @@
 import SideTabs from '@/components/good/SideTabs'
   export default {
     components:{
-      SideTabs
+      SideTabs,
     },
     data(){
       return {

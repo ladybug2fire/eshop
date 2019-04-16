@@ -16,6 +16,9 @@
         <div class="section">
             <span class="iconfont icon-icon"></span>我的订单
         </div>
+        <div class="section">
+            <span class="iconfont icon-label_fill"></span>我的关注
+        </div>
     </div>
     <div class="profile-section">
         <div class="section-title">我的订单<span class="seemore">查看更多</span></div>
@@ -74,25 +77,31 @@
         padding: 10px;
         box-sizing: border-box;
         margin-right: 10px;
-        width: calc(~'50% - 20px');
+        width: calc(~'(100% - 40px)/3');
         text-align: center;
         background-color: #fff;
-        // box-shadow: 2px 2px 5px grey;
         margin-bottom: 20px;
+        font-size: 14px;
         .icon-like_fill{
             color: pink;
-            font-size: 50px;
+            font-size: 25px;
         }
         .icon-icon{
             color: #00d2d3;
-            font-size: 40px;
+            font-size: 20px;
+        }
+        .icon-label_fill{
+            color: #ee5253;
+            font-size: 25px;
         }
         border: 1px solid #F2F6FC;
         &:first-of-type{
-            margin-left: 20px;
-            margin-right: 0;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
+            margin-left: 20px;
+        }
+        &:not(:last-of-type){
+            margin-right: 0;
             border-right: none;
         }
         &:last-of-type{

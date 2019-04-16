@@ -14,6 +14,7 @@ import Shop from '@/pages/shop'
 import MenusList from '@/pages/menulist'
 import ShopCart from '@/pages/shopcart'
 import Order from '@/components/order/OrderItem'
+import Reviewlist from '@/pages/reviewlist'
 Vue.use(Router)
 
 export default new Router({
@@ -71,6 +72,10 @@ export default new Router({
           path: 'order',
           name: '购物车',
           component: Order
+        }, {
+          path: 'review',
+          name: '评论列表',
+          component: Reviewlist
         }
       ]
     },
