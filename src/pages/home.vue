@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <side-tabs></side-tabs>
-    <star />
   </div>
 </template>
 
@@ -17,6 +16,7 @@ import SideTabs from '@/components/good/SideTabs'
     },
     data(){
       return {
+        value: null,
         list: [],
       }
     },

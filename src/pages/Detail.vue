@@ -1,215 +1,181 @@
 <template>
-  <div class="food-detail">
-    <my-bread-crumb :routes="routes"/>
-    <div class="detail-left">
-      <h1>{{foodInfo.foodname}}</h1>
-      <div>{{foodInfo.username}}</div>
-      <el-button size="small" @click="addMenu" v-if="username" :disabled="isFavor">{{isFavor?'已收藏':'收藏'}}</el-button>
-      <el-row>
-        <el-col :span="16">
-          <div v-if="foodInfo">
-            <img :src="HOST+foodInfo.picUrl" alt>
-            <h1 class="subject">详细步骤</h1> 
-            <div v-html="foodInfo.detail"></div>
-          </div>
-        </el-col>
-        <el-col :span="8" class="info">
-          <br>
-          <b>准备耗时:</b>
-          {{foodInfo.prepareTime}}
-          <br>
-          <b>估计用时:</b>
-          {{foodInfo.cookTime}}
-          <br>
-          <b>预估成本:</b>
-          {{foodInfo.price}}
-          <br>
-          <b>操作难度:</b>
-          {{foodInfo.diffculty}}
-          <br>
-          <b>烹饪时间:</b>
-          {{foodInfo.cookTime}}
-          <br>
-          <b>分类:</b>
-          <el-tag type="warning" v-if="foodInfo.diettag">{{foodInfo.diettag}}</el-tag>
-          <el-tag type="danger" v-if="foodInfo.foodtag">{{foodInfo.foodtag}}</el-tag>
-        </el-col>
-      </el-row>
-      <h1 class="subject">评论区</h1>
-      <template v-if="!reviews || reviews.length ===0 ">
-        <div style="color: #606266">这里空空如也，快来占沙发吧～</div>
-      </template>
-      <template v-else>
-        <template v-for="(reviewItem,i) in reviews">
-          <review :data="reviewItem" :key="i"/>
-        </template>
-      </template>
-
-      <div class="review-block" v-if="username">
-        <h4>评论</h4>
-          <el-rate v-model="myrate" show-score></el-rate>
-          <el-input
-            type="textarea"
-            class="review-area"
-            v-model="myreview"
-            placeholder="说说你的看法"
-            name="review"
-          />
-          <div class="publish-btn">
-            <el-button type="primary" @click="submitData()">发布</el-button>
-          </div>
+  <div class="good-detail">
+    <mt-header class="header" title="商品详情">
+      <router-link to="/" slot="left">
+        <mt-button icon="back"></mt-button>
+      </router-link>
+      <mt-button icon="more" slot="right"></mt-button>
+    </mt-header>
+    <div class="header-info">
+      <img class="detail-img" src="@/assets/cake.jpeg" alt="">
+      <div class="title">晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕</div>
+      <div class="desc">茂密森林中的可爱麋鹿、深蓝海洋中可爱蓝鲸、睡意朦胧中可爱的你。一组美食图片之创意甜点分享，愿你的城市有归途。小编推荐一组萌萌的美食图片之创意甜点，希望你们喜欢，如果还想欣赏更多图片，那就不妨收藏下本站吧。</div>
+      <div class="price-info"><span class="price">¥<span class="amount">10</span></span><span class="rule">500g/包</span></div>
+      <div class="addtion-desc">不支持7天无理由退货</div>
+    </div>
+    <div class="review-info">
+      <div class="card-header">
+        <div class="header-title">商品评论(100)</div>
+        <div class="header-action">查看更多评论</div>
       </div>
+      <review :data="reviewItem"/>
+    </div>
+    <div class="footer-bar">
+      <div class="cart-info">
+        <mt-badge type="error" class="cart-badge">
+            10 
+        </mt-badge>
+        <i class="iconfont icon-gouwuche2"></i>
+      </div>
+      <div class="action-btn">加入购物车</div>
     </div>
   </div>
 </template>
 
 <script>
-/**
- * 菜谱详情
- */
-import { HOST } from "@/config/myconfig";
-import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
-import { getFood } from "@/api/food";
-import { publish, list } from "@/api/review";
-import { addFood, getMyMenus } from "@/api/menu";
-
-import Review from "@/components/Review";
-import _ from "lodash";
-
-export default {
-  components: {
-    myBreadCrumb,
-    Review
-  },
-  data() {
-    return {
-      HOST,
-      routes: [
-        { name: "首页", url: "/home" },
-        { name: "菜谱大全", url: "" },
-        { name: "详情" }
-      ],
-      foodInfo: {},
-      reviews: null,
-      myreview: null,
-      myrate: null,
-      isFavor: false,
-    };
-  },
-  computed: {
-    username() {
-      return this.$store.getters.username;
+import Review from "@/components/Review"
+  export default {
+    components:{
+      Review,
     },
-    userid() {
-      return this.$store.getters.userid;
-    }
-  },
-  methods: {
-    getFood() {
-      getFood({
-        params: {
-          id: this.$route.query.id
+    data() {
+      return {
+        reviewItem: {
+            addTime: '2019-04-17',
+            username: '小米',
+            star: 3.5,
+            desc: '不错不错',
         }
-      }).then(res => {
-        let data = res.data;
-        if (data.code === 200) {
-          this.$set(this, "foodInfo", data.data);
-          this.$nextTick(() => {
-            this.getReviews();
-            this.myFavor(_.get(data, 'data._id'));
-          });
-        }
-      });
+      }
     },
-    getReviews() {
-      list({
-        params: {
-          id: this.foodInfo._id
-        }
-      }).then(res => {
-        this.$set(this, "reviews", _.get(res, "data.data"));
-      });
-    },
-    submitData() {
-      if(!this.myreview)return;
-      publish({
-        username: this.username,
-        userid: this.userid,
-        desc: this.myreview,
-        star: this.myrate,
-        foodid: this.foodInfo._id
-      }).then(res => {
-        let data = res.data;
-        if (data.code === 200) {
-          this.$message.success("发布成功");
-          this.myreview = null;
-          this.myrate = 0;
-          this.getReviews();
-        } else {
-          this.$message.error("发布失败:" + data.msg);
-        }
-      });
-    },
-    addMenu(){
-      addFood({
-        id: this.userid,
-        food: this.foodInfo,
-      }).then(response=>{
-        let res = response.data;
-        if(res.code == 200){
-          this.$message.success('收藏成功')
-          this.$set(this, 'isFavor', true);
-        }else{
-          this.$message.success('添加失败')
-        }
-      })
-    },
-    myFavor(goodid){
-      getMyMenus({
-        params:{id: this.userid}
-      }).then(res=>{
-        let foods = _.get(res, 'data.data.0.foods');
-        console.log(goodid, _.find(foods, e=>e._id === goodid))
-        if(_.find(foods, e=>e._id === goodid)){
-          console.log('is favor')
-          this.$set(this, 'isFavor' , true);
-        }else{
-          this.$set(this, 'isFavor' , false);
-        }
-      }) 
-    }
-  },
-  mounted() {
-    this.getFood();
   }
-};
 </script>
 
 <style lang="less" scoped>
-.detail-left {
-  padding: 0;
-  width: 60vw;
-  img {
-    margin-top: 20px;
-    width: 100%;
+.good-detail{
+  background-color: #f8f8f8;
+  padding-bottom: 70px;
+}
+
+@sub-color: #8395a7;
+.header{
+  height: 50px;
+  background-color: white;
+  color:black;
+  border-bottom: 1px solid #EBEEF5;
+}
+.detail-img{
+  height: 250px;
+  width: 100vw;
+  object-fit: cover;
+}
+.title {
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; // 控制多行的行数
+  -webkit-box-orient: vertical;
+}
+.desc{
+  padding: 0 20px;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  // 控制多行的行数
+  -webkit-box-orient: vertical;
+  color: @sub-color;
+
+}
+.addtion-desc{
+  border-top: 1px solid #EBEEF5;
+  padding: 5px 20px;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  // 控制多行的行数
+  -webkit-box-orient: vertical;
+  color: @sub-color; 
+}
+.header-info{
+  background-color: #fff;
+  .price-info{
+    padding: 10px 20px;
+    font-size: 10px;
+    color: #576574;
+    .price{
+      font-weight: bold;
+      color: red;
+      .amount{
+        font-size: 25px;
+      }
+      margin-right: 10px;
+    }
   }
 }
-.subject{
-  border-left: 5px solid #B4010F;
-  padding-left: 5px;
-}
-.food-detail {
-  .info {
-    padding-left: 20px;
+.review-info{
+  margin-top: 20px;
+  background-color: #fff;
+  .card-header{
+      padding: 5px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      border-bottom: 1px solid #EBEEF5;
+      .header-title{
+          color: #303133;
+          font-size: 14px;
+      }
+      .header-action{
+          color: #909399;
+      }
   }
 }
-.review-block {
-  width: 60%;
-  .publish-btn {
-    margin-top: 10px;
+.footer-bar{
+  box-sizing: border-box;
+  position: fixed;
+  width: 100vw;
+  height: 50px;
+  border-top: 1px solid #EBEEF5;
+  background: white;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .cart-info{
+    position: relative;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 10px 20px;
+    color: #303133;
+    background-color: white;
+    .cart-badge{
+        position: absolute;
+        right: 0;
+        top: 0;
+        max-width:20px; 
+        font-size: 10px;
+        text-overflow:ellipsis; 
+        overflow:hidden;
+        transform: translate(0%, -25%)
+    }
   }
-  .review-area {
-    margin-top: 10px;
+  .action-btn{
+    background-color: #00d2d3;
+    box-sizing: border-box;
+    color:white;
+    padding: 0 20px;
+    text-align: center;
+    line-height: 50px;
   }
 }
 </style>

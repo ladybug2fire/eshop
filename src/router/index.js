@@ -45,10 +45,6 @@ export default new Router({
           name: 'orderlist',
           component: Orderlist
         }, {
-          path: 'detail',
-          name: 'detail',
-          component: Detail
-        }, {
           path: 'newpost',
           name: 'newpost',
           component: Newpost
@@ -87,6 +83,10 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    }, {
+      path: '/detail',
+      name: 'detail',
+      component: Detail
     }, 
   ]
 })
