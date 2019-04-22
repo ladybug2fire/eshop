@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <side-tabs></side-tabs>
+    <!-- <side-tabs></side-tabs> -->
+    <media-item v-for="i in 10"></media-item>
   </div>
 </template>
 
@@ -10,9 +11,11 @@
 // import Food from '@/components/Food.vue'
 // import {getList} from '@/api/food'
 import SideTabs from '@/components/good/SideTabs'
+import mediaItem from '@/components/media/mediaItem'
   export default {
     components:{
       SideTabs,
+      mediaItem
     },
     data(){
       return {
