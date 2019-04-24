@@ -1,8 +1,8 @@
 <template>
   <div class="layout-tab">
     <mt-tabbar v-model="selected">
-      <mt-tab-item :id="item.label" v-for="item in tabs" :key="item.label">
-        <div slot="icon" :class="['iconfont', `icon-${selected === item.label ? item.active : item.inactive}`]"></div>
+      <mt-tab-item :id="item.route" v-for="item in tabs" :key="item.route">
+        <div slot="icon" :class="['iconfont', `icon-${selected === item.route ? item.active : item.inactive}`]"></div>
         {{item.label}}
       </mt-tab-item>
     </mt-tabbar>
@@ -24,15 +24,22 @@ export default {
     // MainMenu,
     CartBtn
   },
+  watch:{
+    selected(nv, ov){
+      if(nv !== ov){
+        this.$router.push(nv)
+      }
+    }
+  },
   data() {
     return {
       selected: null,
       tabs: [
-        {label: '首页', active: 'homepage_fill', inactive: 'homepage'},
-        {label: '分类', active: 'leimupinleifenleileibie2', inactive: 'leimupinleifenleileibie'},
-        {label: '发现', active: 'faxian1', inactive: 'faxian'},
-        {label: '购物车', active: 'gouwuche', inactive: 'gouwuche2'},
-        {label: '我的', active: 'mine_fill', inactive: 'mine'}
+        {label: '首页', active: 'homepage_fill', inactive: 'homepage', route: 'home'},
+        {label: '分类', active: 'leimupinleifenleileibie2', inactive: 'leimupinleifenleileibie', route:'cat'},
+        {label: '发现', active: 'faxian1', inactive: 'faxian', route: 'discover'},
+        {label: '购物车', active: 'gouwuche', inactive: 'gouwuche2', route: 'cart'},
+        {label: '我的', active: 'mine_fill', inactive: 'mine', route:'mine'}
       ]
     }
   },
