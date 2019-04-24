@@ -15,6 +15,7 @@ import MenusList from '@/pages/menulist'
 import ShopCart from '@/pages/shopcart'
 import Order from '@/components/order/OrderItem'
 import Reviewlist from '@/pages/reviewlist'
+import Publish from '@/components/media/publish'
 Vue.use(Router)
 
 export default new Router({
@@ -72,6 +73,10 @@ export default new Router({
           path: 'review',
           name: '评论列表',
           component: Reviewlist
+        },{
+          path: 'publish',
+          name: '发布文章',
+          component: Publish
         }
       ]
     },
