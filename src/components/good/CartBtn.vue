@@ -19,7 +19,7 @@
         },
         methods:{
             jumpCart(){
-                this.$router.replace('shopcart')
+                this.$router.replace('order')
             }
         }
     }
