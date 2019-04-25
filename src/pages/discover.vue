@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <side-tabs></side-tabs>
-    <!-- <media-item v-for="i in 10"></media-item> -->
+    <!-- <side-tabs></side-tabs> -->
+    <media-item v-for="i in 10"></media-item>
   </div>
 </template>
 

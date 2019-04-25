@@ -17,7 +17,7 @@
 // import MyHeader from "@/components/Header";
 // import MainMenu from "@/components/menu/MainMenu";
 import CartBtn from '@/components/good/CartBtn'
-
+import _ from 'lodash'
 export default {
   components: {
     // MyHeader,
@@ -29,6 +29,12 @@ export default {
       if(nv !== ov){
         this.$router.push(nv)
       }
+    },
+    '$route.path':{
+      handler(nv){
+        const one = _.find(this.tabs, e=>nv.match(e.route))
+        this.$set(this, 'selected', one.route)
+      }
     }
   },
   data() {
@@ -38,11 +44,16 @@ export default {
         {label: '首页', active: 'homepage_fill', inactive: 'homepage', route: 'home'},
         {label: '分类', active: 'leimupinleifenleileibie2', inactive: 'leimupinleifenleileibie', route:'cat'},
         {label: '发现', active: 'faxian1', inactive: 'faxian', route: 'discover'},
-        {label: '购物车', active: 'gouwuche', inactive: 'gouwuche2', route: 'cart'},
-        {label: '我的', active: 'mine_fill', inactive: 'mine', route:'mine'}
+        {label: '购物车', active: 'gouwuche', inactive: 'gouwuche2', route: 'order'},
+        {label: '我的', active: 'mine_fill', inactive: 'mine', route:'profile'}
       ]
     }
   },
+  mounted(){
+    const nv = this.$route.path;
+    const one = _.find(this.tabs, e=>nv.match(e.route))
+    this.$set(this, 'selected', one.route) 
+  }
 };
 </script>
 
