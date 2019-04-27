@@ -34,11 +34,6 @@ export default new Router({
       },
       children: [
         {
-          path: '/home/detail',
-          name: 'detail',
-          component: Detail
-        },
-        {
           path: 'home',
           name: 'home',
           component: Shop,
@@ -114,5 +109,10 @@ export default new Router({
       name: 'register',
       component: Register
     }, 
+    {
+      path: '/home/detail',
+      name: 'detail',
+      component: Detail
+    },
   ]
 })
