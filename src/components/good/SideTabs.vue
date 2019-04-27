@@ -49,6 +49,7 @@ export default {
             box-sizing: border-box;
             &.active{
                 background: white;
+                border-left: 4px solid #00d2d3;
             }
         }
     }
