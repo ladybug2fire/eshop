@@ -1,33 +1,42 @@
 <template>
 <div>
-    <div class="order-item" v-for="i in 10" :key="i">
+    <div class="order-item">
         <div class="header">
-            <div class="order-no">订单编号: 123123189489234189419</div>
+            <div class="order-no">订单编号: {{item._id}}</div>
             <div class="order-status">交易成功</div>
         </div>
         <div class="container">
             <div class="img-list">
-                <img src="@/assets/cake.jpeg" alt="" v-for="j in 10" :key="j">
+                <img :src="HOST+g.picUrl" alt="" v-for="g in item.goods" :key="g._id">
             </div>
-            <div class="count">共10个</div>
+            <div class="count">共{{item.goods.length}}个</div>
         </div>
         <div class="price">
-            <div class="price-label">合计:</div>
-            <div class="price-info">
-                <span class="price-tag">¥</span>
-                <span class="price-amount">52.50</span>
+            <div class="buy-time">{{item.addTime}}</div>
+            <div class="price-label">合计:
+                <div class="price-info">
+                    <span class="price-tag">¥</span>
+                    <span class="price-amount">{{item.price}}</span>
+                </div>
             </div>
         </div>
         <div class="footer">
-            <div class="del-btn">删除订单</div>
+            <div class="del-btn btn">删除订单</div>
+            <div class="del-btn btn">评价</div>
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import { HOST } from "@/config/myconfig";
     export default {
-        
+       props: ['item'],
+       data() {
+           return {
+               HOST
+           }
+       },
     }
 </script>
 
@@ -49,6 +58,7 @@
             overflow-x: scroll;
             width: calc(~'100% - 100px');
             img{
+                object-fit: cover;
                 height: 60px;
                 width: 60px;
                 flex-shrink: 0;
@@ -69,9 +79,14 @@
         font-size: 10px;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
+        .price-label{
+            display: flex;
+            flex-direction: row;
+        }
         .price-info{
             display: flex;
+            flex-direction: row;
             align-items: flex-end;
             color: red;
             .price-amount{
@@ -111,6 +126,9 @@
             height: 20px;
             border-radius: 20px;
             cursor: pointer;
+        }
+        .btn:not(:last-of-type){
+            margin-right: 10px;
         }
     }
 }

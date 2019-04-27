@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="shop">
+    <mt-header class="header" title="商城">
+    </mt-header>
     <good-item :list="goods"/>
   </div>
 </template>
@@ -28,5 +30,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.shop{
+  padding-top: 50px;
+  .header {
+    height: 50px;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #ebeef5;
+  }
+}
 </style>

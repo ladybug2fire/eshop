@@ -50,7 +50,7 @@ export default new Router({
           name: 'favorite',
           component: Favorite
         }, {
-          path: 'orderlist',
+          path: 'profile/orderlist',
           name: 'orderlist',
           component: Orderlist
         }, {
