@@ -2,6 +2,7 @@
   <div>
     <div>
       <mt-field label="用户名" placeholder="请输入用户名" v-model="form.username"></mt-field>
+      <mt-field label="手机号" placeholder="手机号" v-model="form.phone"></mt-field>
       <mt-field label="密码" placeholder="请输入密码" type="password" v-model="form.password"></mt-field>
     </div>
     <div class="btn-group">
@@ -18,7 +19,8 @@ export default {
     return {
       form: {
         username: "",
-        password: ""
+        password: "",
+        phone: "",
       }
     };
   },

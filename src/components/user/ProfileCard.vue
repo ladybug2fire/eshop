@@ -7,8 +7,8 @@
         <img class="avatar" src="@/assets/cake.jpeg" alt>
       </div>
       <div class="right">
-        <div>熊猫爱吃鱼</div>
-        <div>137******708</div>
+        <div>{{username}}</div>
+        <div>{{phone|fuse}}</div>
       </div>
     </div>
     <div class="group">
@@ -36,6 +36,7 @@
       </div>
       <order-item></order-item>
     </div>
+    <mt-button class="mt-btn primary logout-btn" type="danger" @click="logout">退出登录</mt-button>
   </div>
 </template>
 
@@ -47,14 +48,34 @@ export default {
   components: {
     OrderItem
   },
+  filters: {
+    fuse: function (value) {
+      if(value && value.length === 11){
+        const list = value.split('');
+        list.splice(3,5,...new Array(5).fill('*')).join('')
+        return list.join('');
+      }
+      return value
+    }
+  },
   computed:{
       orderlist(){
           return _.take(this.$store.getters.orderlist, 3);
+      },
+      username(){
+        return this.$store.getters.username;
+      },
+      phone(){
+        return this.$store.getters.userInfo.phone;
       }
   },
   methods: {
     seeMoreOrder() {
       this.$router.replace("/profile/orderlist");
+    },
+    logout(){
+      this.$store.commit('logout')
+      this.$router.replace('/home')
     }
   },
   mounted() {
@@ -67,6 +88,10 @@ export default {
 .container {
   background: #f8f8f8;
   padding: 40px 0;
+  .logout-btn{
+    width: calc(100% - 40px);
+    margin: 20px;
+  }
   .header {
     height: 50px;
     position: fixed;
