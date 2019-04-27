@@ -19,20 +19,11 @@ export default {
   components: {
     OrderItem
   },
-  data() {
-    return {
-      orderlist: []
-    };
+  computed:{
+    orderlist(){
+      return this.$store.getters.orderlist;
+    } 
   },
-  mounted() {
-    list({
-      params: {
-        userid: this.$store.getters.userid
-      }
-    }).then(res => {
-      this.$set(this, "orderlist", res.data.data);
-    });
-  }
 };
 </script>
 

@@ -42,14 +42,15 @@
 <script>
 import OrderItem from "@/components/order/OrderItem";
 import { list } from "@/api/order";
+import _ from 'lodash'
 export default {
   components: {
     OrderItem
   },
-  data() {
-    return {
-      orderlist: []
-    };
+  computed:{
+      orderlist(){
+          return _.take(this.$store.getters.orderlist, 3);
+      }
   },
   methods: {
     seeMoreOrder() {
@@ -57,14 +58,7 @@ export default {
     }
   },
   mounted() {
-    list({
-      params: {
-        userid: this.$store.getters.userid
-      }
-    }).then(res => {
-      this.$set(this, "orderlist", res.data.data.slice(0, 3));
-      console.log(res.data.data);
-    });
+      this.$store.dispatch('getOrderList')
   }
 };
 </script>

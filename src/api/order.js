@@ -9,3 +9,7 @@ export const list = function (params) {
 export const buy = function (params) {
   return axios.post(`${HOST}/api/order/buy`, params)
 }
+
+export const del = function (params) {
+  return axios.get(`${HOST}/api/order/del`, params)
+}
