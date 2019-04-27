@@ -2,18 +2,18 @@
   <div class="media-item" @click="seeDetail">
     <div class="header-container">
       <div class="username">
-        <img class="avatar" src="@/assets/cake.jpeg" alt>
+        <img class="avatar" :src="HOST + data.userAvatar" alt>
         {{data.username || "匿名用户" }}
       </div>
       <div class="addtime">{{data.addTime}}</div>
     </div>
     <div>
-      <img src="@/assets/cake.jpeg" class="media-pic" alt>
+      <img :src="HOST + data.picUrl" class="media-pic" alt>
     </div>
-    <div class="title">【糖雪球】酸甜可口，做法简单，比冰糖葫芦还好吃</div>
+    <div class="title">{{data.title}}</div>
     <div class="footer">
       <div>浏览{{1813}}</div>
-      <div @click="sheetVisible=true">
+      <div @click.stop="sheetVisible=true">
         <span class="iconfont icon-send"></span>分享
       </div>
     </div>
@@ -22,9 +22,12 @@
 </template>
 
 <script>
+import { HOST } from "@/config/myconfig";
 export default {
+  props: ['data'],
   data() {
     return {
+      HOST,
       actions: [
         {
           name: "朋友圈",
@@ -34,17 +37,15 @@ export default {
         }
       ],
       sheetVisible: false,
-      data: {
-        username: "123",
-        addTime: new Date().toLocaleString()
-      }
     };
   },
   methods: {
     seeDetail() {
       this.$router.replace({
         path: "/discover/detail",
-        query: ""
+        query: {
+          id: this.data._id
+        }
       });
     }
   }
@@ -85,6 +86,7 @@ export default {
       object-fit: cover;
       border-radius: @size;
       margin-right: 10px;
+      background-color: #f8f8f8;
     }
     display: flex;
     align-items: center;

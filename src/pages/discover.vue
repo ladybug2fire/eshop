@@ -3,7 +3,7 @@
     <mt-header class="header" title="发现">
       <mt-button slot="right" class="iconfont icon-mine post-btn"></mt-button>
     </mt-header>
-    <media-item v-for="i in 10" :key="i"></media-item>
+    <media-item v-for="i in list" :data="i" :key="i._id"></media-item>
     <edit-btn />
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import mediaItem from "@/components/media/mediaItem";
 import editBtn from '@/components/media/editBtn';
+import {getList} from '@/api/article';
 export default {
   components: {
     mediaItem,
@@ -29,12 +30,12 @@ export default {
   },
   methods: {
     getList() {
-      // getList().then(res=>{
-      //   let data = res.data;
-      //   if(data.code === 200){
-      //     this.list.push(...data.data);
-      //   }
-      // })
+      getList().then(res=>{
+        let data = res.data;
+        if(data.code === 200){
+          this.list.push(...data.data);
+        }
+      })
     }
   },
   mounted() {

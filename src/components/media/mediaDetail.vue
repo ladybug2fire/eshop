@@ -7,47 +7,53 @@
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     <div class="header-info">
-      <img class="detail-img" src="@/assets/cake.jpeg" alt="">
-      <div class="title">晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕</div>
-      <div class="desc">茂密森林中的可爱麋鹿、深蓝海洋中可爱蓝鲸、睡意朦胧中可爱的你。一组美食图片之创意甜点分享，愿你的城市有归途。小编推荐一组萌萌的美食图片之创意甜点，希望你们喜欢，如果还想欣赏更多图片，那就不妨收藏下本站吧。</div>
-      <div class="price-info"><span class="price">¥<span class="amount">10</span></span><span class="rule">500g/包</span></div>
-      <div class="addtion-desc">不支持7天无理由退货</div>
+      <img class="detail-img" :src="HOST + article.picUrl" alt="">
+      <div class="title">{{article.title}}</div>
+      <div class="author-block">
+        <div class="author-name">{{article.username || '匿名作者'}}</div>
+        <div :class="['follow-btn', {'active': active}]" @click="active = !active">{{active?'已关注':'关注'}}</div>
+      </div>
+      <div class="content" v-html="article.detail">
+      </div>
     </div>
     <div class="review-info">
       <div class="card-header">
-        <div class="header-title">商品评论(100)</div>
+        <div class="header-title">评论(100)</div>
         <div class="header-action">查看更多评论</div>
       </div>
       <review :data="reviewItem"/>
-    </div>
-    <div class="footer-bar">
-      <div class="cart-info">
-        <mt-badge type="error" class="cart-badge">
-            10 
-        </mt-badge>
-        <i class="iconfont icon-gouwuche2"></i>
-      </div>
-      <div class="action-btn">加入购物车</div>
     </div>
   </div>
 </template>
 
 <script>
 import Review from "@/components/Review"
+import {getArticle} from '@/api/article'
+import { HOST } from "@/config/myconfig";
   export default {
     components:{
       Review,
     },
     data() {
       return {
+        HOST,
         reviewItem: {
             addTime: '2019-04-17',
             username: '小米',
             star: 3.5,
             desc: '不错不错',
-        }
+        },
+        article: {},
+        active: false,
       }
     },
+    mounted(){
+      getArticle({params: {
+        id: this.$route.query.id
+      }}).then(res=>{
+        this.$set(this, 'article', res.data.data)
+      })
+    }
   }
 </script>
 
@@ -55,6 +61,34 @@ import Review from "@/components/Review"
 .good-detail{
   background-color: #f8f8f8;
   padding-bottom: 70px;
+  .content{
+    padding: 10px 20px;
+  }
+}
+.author-block{
+  display: flex;
+  flex-direction: row;
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 8px;
+  justify-content: space-between;
+  margin: 10px 20px;
+  font-size: 14px;
+  align-items: center;
+  .follow-btn{
+    padding: 5px 10px;
+    background: pink;
+    color: white;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 24px;
+    line-height: 14px;
+    &.active{
+      background: white;
+      color: pink;
+      border: 1px solid pink;
+    }
+  }
 }
 
 @sub-color: #8395a7;
@@ -71,7 +105,7 @@ import Review from "@/components/Review"
 }
 .title {
   padding: 0 20px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
