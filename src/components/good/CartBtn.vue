@@ -1,10 +1,12 @@
 <template>
-    <div class="fixed-cart" @click="jumpCart">
+<div>
+    <div class="fixed-cart" @click="jumpCart" v-if="isShow">
         <mt-badge type="error" class="cart-badge">
             {{goodcount}}
         </mt-badge>
         <i class="iconfont icon-gouwuche"></i>
     </div>
+</div>
 </template>
 
 <script>
@@ -15,6 +17,9 @@
             },
             username(){
                 return this.$store.getters.username;
+            },
+            isShow(){
+                return ['home', 'cat'].some(e=>this.$route.path.match(e))
             }
         },
         methods:{

@@ -23,9 +23,6 @@
     >立减购买&nbsp;{{totalPrice? `${totalPrice}元`: ''}}</el-button>
     <div v-else>
       这是一个空空如也的菜篮子，去
-      <router-link to="/shop">
-        <el-button type="primary" size="small">商城</el-button>
-      </router-link>看看
     </div>
   </div>
 </template>

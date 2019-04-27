@@ -32,9 +32,14 @@ export default new Router({
       },
       children: [
         {
+          path: 'home/detail',
+          name: 'detail',
+          component: Detail
+        },
+        {
           path: 'home',
           name: 'home',
-          component: Shop
+          component: Shop,
         }, {
           path: 'profile',
           name: 'profile',
@@ -78,15 +83,15 @@ export default new Router({
         }, {
           path: 'discover',
           name: '发现',
-          component: Discover
-        }, {
+          component: Discover,
+        },{
+          path: 'discover/publish',
+          name: '发布文章',
+          component: Publish
+        },{
           path: 'review',
           name: '评论列表',
           component: Reviewlist
-        },{
-          path: 'publish',
-          name: '发布文章',
-          component: Publish
         }
       ]
     },
@@ -98,10 +103,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    }, {
-      path: '/detail',
-      name: 'detail',
-      component: Detail
-    }, 
+    },
   ]
 })

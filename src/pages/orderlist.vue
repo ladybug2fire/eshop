@@ -68,6 +68,7 @@ export default {
   }
   .snap {
     object-fit: cover;
+    flex-shrink: none;
     height: 50px;
     width: 50px;
   }

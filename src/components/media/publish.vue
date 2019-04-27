@@ -1,5 +1,10 @@
 <template>
   <div class="my-publish">
+    <mt-header class="header" title="发布文章">
+      <router-link to="/discover" slot="left">
+        <mt-button icon="back"></mt-button>
+      </router-link>
+    </mt-header>
     <div>
       <mt-field label="标题" placeholder="文章标题" v-model="title"></mt-field>
     </div>
@@ -52,6 +57,16 @@ export default {
 
 <style lang="less">
 .my-publish{
+  .header {
+    height: 50px;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #ebeef5;
+    position: fixed;
+    width: 100%;
+    top:0;
+  }
+  padding-top: 50px;
   #editor{
     margin-top: 10px;
     .w-e-text-container{

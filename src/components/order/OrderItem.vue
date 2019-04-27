@@ -51,6 +51,7 @@
             img{
                 height: 60px;
                 width: 60px;
+                flex-shrink: 0;
                 border-radius: 10px;
                 background-color: white;
                 margin-right: 10px;
