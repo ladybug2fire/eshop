@@ -1,29 +1,23 @@
 <template>
-  <div>
-    <my-bread-crumb :routes="routes"/>
-    <template v-for="item in goodlist">
-      <div :key="item.goodid" class="good-container" v-if="item.count > 0">
-        <img class="snap" :src="HOST + item.picUrl">
-        <div class="good-name">{{item.goodname}}</div>
-        <div class="price">¥ {{item.price}}</div>
-        <div class="good-info">
-          <div class="count">
-            <el-button size="small" @click="modify(item, -1)" icon="el-icon-minus" circle></el-button>
-            <div class="count-text">{{item.count}}</div>
-            <el-button size="small" @click="modify(item, 1)" icon="el-icon-plus" circle></el-button>
+  <div class="shop-cart">
+    <mt-header class="header" title="购物车"></mt-header>
+    <div v-if="goodlist.length" class="item-container">
+      <good-item v-for="item in goodlist" :key="item._id" :item="item"/>
+      <div class="footer-bar" v-if="goodCount > 0">
+        <div></div>
+        <div class="right">
+          <div class="price-info">
+            <div>
+              合计:
+              <span class="price">{{totalPrice? `${totalPrice}元`: ''}}</span>
+            </div>
+            <div class="tip">点击结算进去购买哟</div>
           </div>
+          <div class="action-btn" @click="buyNow">去结算</div>
         </div>
       </div>
-    </template>
-    <el-button
-      type="primary"
-      size="small"
-      v-if="goodCount > 0"
-      @click="buyNow"
-    >立减购买&nbsp;{{totalPrice? `${totalPrice}元`: ''}}</el-button>
-    <div v-else>
-      这是一个空空如也的菜篮子，去
     </div>
+    <div v-else style="padding: 0 20px;">这里是空的～</div>
   </div>
 </template>
 
@@ -31,14 +25,14 @@
 /**
  * 菜单详情
  */
-import GoodItem from "@/components/good/GoodItem";
-import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
+import GoodItem from "@/components/good/CartGoodItem";
 import { HOST } from "@/config/myconfig";
 import { buy } from "@/api/order";
+import { MessageBox } from 'mint-ui';
+import { Toast } from 'mint-ui';
 import _ from "lodash";
 export default {
   components: {
-    myBreadCrumb,
     GoodItem
   },
   computed: {
@@ -99,26 +93,67 @@ export default {
       }
     },
     buyNow() {
-      this.$confirm(`确定购买吗¥ ${this.totalPrice}?`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.doBuy();
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
+      MessageBox.confirm(`确定购买吗¥ ${this.totalPrice}?`).then(action => {
+        console.log(action, 'confirm')
+       this.doBuy(); 
+      }).catch(cancel=>{
+        Toast({
+          message: '已取消',
+          iconClass: 'icon icon-error'
         });
+      });
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
+.shop-cart {
+  height: 100%;
+  overflow: scroll;
+  .header {
+    height: 50px;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #ebeef5;
+    display: fixed;
+    top: 0;
+  }
+  .item-container {
+    padding-bottom: 50px;
+  }
+  .footer-bar {
+    border-top: 1px solid #ebeef5;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .action-btn {
+      background-color: red;
+      color: white;
+      height: 50px;
+      line-height: 50px;
+      align-self: end;
+      padding: 0 20px;
+    }
+    .right {
+      display: flex;
+      flex-direction: row;
+      .price-info {
+        margin: 0 10px;
+        .price {
+          color: #f56c6c;
+          font-weight: bold;
+        }
+      }
+      .tip {
+        color: #909399;
+      }
+    }
+  }
+}
 .good-container {
   width: 40vw;
   display: flex;

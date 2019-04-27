@@ -46,7 +46,7 @@ export default {
         {label: '首页', active: 'homepage_fill', inactive: 'homepage', route: '/home'},
         {label: '分类', active: 'leimupinleifenleileibie2', inactive: 'leimupinleifenleileibie', route:'/cat'},
         {label: '发现', active: 'faxian1', inactive: 'faxian', route: '/discover'},
-        {label: '购物车', active: 'gouwuche', inactive: 'gouwuche2', route: '/order'},
+        {label: '购物车', active: 'gouwuche', inactive: 'gouwuche2', route: '/shopcart'},
         {label: '我的', active: 'mine_fill', inactive: 'mine', route:'/profile'}
       ]
     }

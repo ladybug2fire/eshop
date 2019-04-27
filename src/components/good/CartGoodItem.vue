@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div class="good-item" v-for="i in 10" :key="i">
-      <div class="checkbox-info">
+    <div class="good-item" v-if="item.count">
+      <div class="checkbox-info" v-if="false">
           <span :class="['checkbox', 'iconfont', checked ?'icon-check-circle-fill': 'icon-yuancircle46']" @click="checked=!checked"></span>
       </div>
       <div class="left-container">
-        <img class="left-img" src="@/assets/cake.jpeg" alt>
+        <img class="left-img" :src="HOST + item.picUrl" alt>
       </div>
       <div class="right-info">
-        <div class="title">晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕</div>
+        <div class="title">{{item.goodname}}</div>
         <div class="price-info">
           <span class="price">
             ¥
-            <span class="amount">10</span>
+            <span class="amount">{{item.price}}</span>
           </span>
-          <span class="rule">500g/包</span>
+          <span class="rule">{{item.specify}}</span>
         </div>
         <div class="cart-action">
-            <div class="minus">-</div>
-            <div class="count">10</div>
-            <div class="plus">+</div>
+            <div class="minus" @click="modify(-1)">-</div>
+            <div class="count">{{item.count}}</div>
+            <div class="plus" @click="modify(1)">+</div>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
 <script>
 import { HOST } from "@/config/myconfig";
 export default {
-  props: ["list"],
+  props: ["item"],
   data() {
     return {
       HOST,
@@ -42,11 +42,10 @@ export default {
     }
   },
   methods: {
-    addGood(o) {
-      this.$notify.success("已加入菜篮子");
+    modify(count) {
       this.$store.commit("addGood", {
-        ...o,
-        count: 1
+        ...this.item,
+        count,
       });
     }
   }
