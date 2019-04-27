@@ -1,6 +1,7 @@
 <template>
   <div class="shop">
     <mt-header class="header" title="商城">
+      <mt-button class="iconfont icon-search" slot="right" @click="search"></mt-button>
     </mt-header>
     <good-item :list="goods"/>
   </div>
@@ -20,6 +21,16 @@ export default {
     return {
       goods: null,
     };
+  },
+  methods:{
+    search(){
+      this.$router.push({
+        path: '/search',
+        query:{
+          pre: this.$route.path
+        }
+      })
+    }
   },
   mounted(){
     list().then(res=>{
@@ -41,6 +52,10 @@ export default {
     background-color: white;
     color: black;
     border-bottom: 1px solid #ebeef5;
+    .iconfont{
+      color: #00d2d3;
+      font-size: 20px;
+    }
   }
 }
 </style>

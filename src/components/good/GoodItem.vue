@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="good-item" v-for="i in list" :key="i._id" @click="seeDetail">
+    <div class="good-item" v-for="i in list" :key="i._id" @click.stop="seeDetail">
       <div class="left-container">
         <img class="left-img" :src="HOST+i.picUrl" alt>
       </div>
@@ -21,6 +21,7 @@
 </template>
 <script>
 import { HOST } from "@/config/myconfig";
+import { Toast } from "mint-ui";
 export default {
   props: ["list"],
   data() {
@@ -36,14 +37,17 @@ export default {
   },
   methods: {
     addGood(o) {
-      this.$message.success("已加入购物车");
+      Toast({
+        message: "已加入购物车",
+        iconClass: "icon icon-success"
+      });
       this.$store.commit("addGood", {
         ...o,
         count: 1
       });
     },
-    seeDetail(o){
-      this.$router.push('/home/detail')
+    seeDetail(o) {
+      this.$router.push("/home/detail");
     }
   }
 };

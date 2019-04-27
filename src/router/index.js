@@ -19,6 +19,7 @@ import Cat from '@/pages/cat'
 import Reviewlist from '@/pages/reviewlist'
 import Publish from '@/components/media/publish'
 import MediaDetail from '@/components/media/mediaDetail'
+import Search from '@/pages/search'
 Vue.use(Router)
 
 export default new Router({
@@ -33,7 +34,7 @@ export default new Router({
       },
       children: [
         {
-          path: 'home/detail',
+          path: '/home/detail',
           name: 'detail',
           component: Detail
         },
@@ -97,7 +98,11 @@ export default new Router({
           path: 'review',
           name: '评论列表',
           component: Reviewlist
-        }
+        },{
+          path: 'search',
+          name: 'search',
+          component: Search
+        },
       ]
     },
     {
@@ -108,6 +113,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    },
+    }, 
   ]
 })
