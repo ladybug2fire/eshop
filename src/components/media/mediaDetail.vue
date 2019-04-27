@@ -1,7 +1,7 @@
 <template>
   <div class="good-detail">
-    <mt-header class="header" title="商品详情">
-      <router-link to="/" slot="left">
+    <mt-header class="header" title="文章详情">
+      <router-link to="/discover" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>

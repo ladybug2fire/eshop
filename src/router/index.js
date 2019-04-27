@@ -18,6 +18,7 @@ import Discover from '@/pages/discover'
 import Cat from '@/pages/cat'
 import Reviewlist from '@/pages/reviewlist'
 import Publish from '@/components/media/publish'
+import MediaDetail from '@/components/media/mediaDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -88,6 +89,10 @@ export default new Router({
           path: 'discover/publish',
           name: '发布文章',
           component: Publish
+        },{
+          path: 'discover/detail',
+          name: '详情',
+          component: MediaDetail
         },{
           path: 'review',
           name: '评论列表',
