@@ -7,12 +7,23 @@
     </mt-header>
     <div>
       <el-form size="small" :model="form" ref="form" label-width="100px" class="profile-edit">
+        <el-form-item label="头像">
+          <my-upload :model="form" prop="avatar" :avatar="true" />
+        </el-form-item>
         <el-form-item label="昵称" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
-        <el-form-item label="昵称" prop="username">
-          <my-upload :model="form" prop="picUrl" :avatar="true" />
+        <el-form-item label="性别" prop="resource">
+          <el-radio-group v-model="form.sex">
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
+            <el-radio label="保密"></el-radio>
+          </el-radio-group>
         </el-form-item>
+        <el-form-item label="生日">
+          <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"></el-date-picker>
+        </el-form-item>
+       
         <el-form-item label="收获地址" prop="address">
           <el-input placeholder="地址" v-model="form.address"></el-input>
         </el-form-item>

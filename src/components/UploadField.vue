@@ -13,20 +13,23 @@
 
 <script>
 import { HOST } from "@/config/myconfig";
-
+import _ from 'lodash'
 export default {
   props: ["model", "prop", "avatar"],
   data() {
     return {
       uploadaction: `${HOST}/api/article/upload`,
-      imageUrl: ""
     };
+  },
+  computed:{
+    imageUrl(){
+      return HOST + _.get(this.model, this.prop)
+    }
   },
   methods: {
     onSuccess(res) {
       if (res.code === 200) {
         this.$set(this.model, this.prop, res.data);
-        this.$set(this, "imageUrl", HOST + res.data);
       }
     },
     handleRemove() {

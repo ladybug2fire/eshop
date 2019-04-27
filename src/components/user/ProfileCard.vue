@@ -4,11 +4,11 @@
     </mt-header>
     <div class="profile-card">
       <div class="left">
-        <img class="avatar" src="@/assets/cake.jpeg" alt>
+        <img class="avatar" :src="HOST + userInfo.avatar" alt>
       </div>
       <div class="right">
         <div>{{username}}</div>
-        <div>{{phone|fuse}}</div>
+        <div>{{userInfo.phone|fuse}}</div>
       </div>
       <div class="iconfont icon-brush_fill edit-profile" @click="toEdit">编辑</div>
     </div>
@@ -44,10 +44,16 @@
 <script>
 import OrderItem from "@/components/order/OrderItem";
 import { list } from "@/api/order";
+import { HOST } from "@/config/myconfig";
 import _ from 'lodash'
 export default {
   components: {
     OrderItem
+  },
+  data() {
+    return {
+      HOST,
+    }
   },
   filters: {
     fuse: function (value) {
@@ -66,8 +72,8 @@ export default {
       username(){
         return this.$store.getters.username;
       },
-      phone(){
-        return this.$store.getters.userInfo.phone;
+      userInfo(){
+        return this.$store.getters.userInfo;
       }
   },
   methods: {
