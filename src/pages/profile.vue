@@ -1,20 +1,17 @@
 <template>
-  <div>
+  <div class="page">
+    <mt-header class="header" title="编辑资料">
+      <router-link to="/profile" slot="left">
+        <mt-button icon="back"></mt-button>
+      </router-link>
+    </mt-header>
     <div>
-      <my-bread-crumb :routes="routes"/>
       <el-form size="small" :model="form" ref="form" label-width="100px" class="profile-edit">
         <el-form-item label="昵称" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
-        <el-form-item label="性别" prop="resource">
-          <el-radio-group v-model="form.sex">
-            <el-radio label="男"></el-radio>
-            <el-radio label="女"></el-radio>
-            <el-radio label="保密"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"></el-date-picker>
+        <el-form-item label="昵称" prop="username">
+          <my-upload :model="form" prop="picUrl" :avatar="true" />
         </el-form-item>
         <el-form-item label="收获地址" prop="address">
           <el-input placeholder="地址" v-model="form.address"></el-input>
@@ -22,22 +19,20 @@
         <el-form-item label="个人简介" prop="desc">
           <el-input type="textarea" v-model="form.desc"></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">确认修改</el-button>
-          <el-button @click="resetForm('form')">重置</el-button>
-        </el-form-item>
       </el-form>
+      <mt-button class="mt-btn primary confirm-btn" type="danger" @click="submitForm('form')">确认修改</mt-button>
     </div>
   </div>
 </template>
 
 <script>
-import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import { updateUser } from "@/api/user";
+import myUpload from "@/components/UploadField.vue"
 
 export default {
-  components: {
-    myBreadCrumb
+ 
+  components:{
+    myUpload
   },
   data() {
     return {
@@ -81,7 +76,12 @@ export default {
 
 <style lang="less" scoped>
 .profile-edit {
-  width: 50vw;
+  margin-top: 20px;
+  padding-right: 20px;
   text-align: left;
 }
+    .confirm-btn{
+      width: calc(100% - 40px);
+      margin: 20px;
+    }
 </style>

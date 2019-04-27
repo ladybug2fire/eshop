@@ -5,6 +5,7 @@ import Home from '@/pages/home'
 import Login from '@/pages/login'
 import Register from '@/pages/register'
 import Profile from '@/components/user/ProfileCard'
+import EditProfile from '@/pages/profile'
 import Favorite from '@/pages/favorite'
 import Orderlist from '@/pages/orderlist'
 import Detail from '@/pages/detail'
@@ -112,7 +113,7 @@ export default new Router({
           path: 'search',
           name: 'search',
           component: Search
-        },
+        }
       ]
     },
     {
@@ -128,6 +129,17 @@ export default new Router({
       path: '/home/detail',
       name: 'detail',
       component: Detail
-    },
+    },{
+      path: '/profile/edit',
+      name: 'editprofile',
+      beforeEnter: (to, from, next) => {
+        if(store.getters.userid){
+          next()
+        }else{
+          next('/login')
+        }
+      },
+      component: EditProfile,
+    }
   ]
 })

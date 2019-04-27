@@ -10,6 +10,7 @@
         <div>{{username}}</div>
         <div>{{phone|fuse}}</div>
       </div>
+      <div class="iconfont icon-brush_fill edit-profile" @click="toEdit">编辑</div>
     </div>
     <div class="group">
       <div class="section">
@@ -76,6 +77,9 @@ export default {
     logout(){
       this.$store.commit('logout')
       this.$router.replace('/home')
+    },
+    toEdit(){
+      this.$router.push('/profile/edit')
     }
   },
   mounted() {
@@ -100,6 +104,12 @@ export default {
     background-color: white;
     color: black;
     border-bottom: 1px solid #ebeef5;
+  }
+  .edit-profile{
+    flex-grow: 1;
+    text-align: right;
+    line-height: 60px;
+    cursor: pointer;
   }
 }
 .profile-card {

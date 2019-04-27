@@ -1,16 +1,6 @@
 <template>
-  <!-- <el-upload
-    :action="uploadaction"
-    name="file"
-    list-type="picture-card"
-    :limit="1"
-    :on-success="onSuccess"
-    :on-remove="handleRemove"
-  >
-    <i class="el-icon-plus"></i>
-  </el-upload>-->
   <el-upload
-    class="avatar-uploader"
+    :class="['avatar-uploader', {'squire': avatar}]"
     :action="uploadaction"
     :show-file-list="false"
     :on-success="onSuccess"
@@ -25,18 +15,18 @@
 import { HOST } from "@/config/myconfig";
 
 export default {
-  props: ["model", "prop"],
+  props: ["model", "prop", "avatar"],
   data() {
     return {
       uploadaction: `${HOST}/api/article/upload`,
-      imageUrl: '',
+      imageUrl: ""
     };
   },
   methods: {
     onSuccess(res) {
       if (res.code === 200) {
         this.$set(this.model, this.prop, res.data);
-        this.$set(this, 'imageUrl', HOST + res.data);
+        this.$set(this, "imageUrl", HOST + res.data);
       }
     },
     handleRemove() {
@@ -58,7 +48,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -71,6 +61,9 @@ export default {
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
+.avatar-uploader.squire .el-upload{
+  width: 178px !important;
+} 
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -79,8 +72,12 @@ export default {
   line-height: 178px;
   text-align: center;
 }
+.squire .avatar {
+  width: 178px;
+}
 .avatar {
   width: 100vw;
+
   object-fit: cover;
   height: 178px;
   display: block;
