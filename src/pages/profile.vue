@@ -65,9 +65,10 @@ export default {
         phone: ""
       },
       rule: {
+        username: [{required: true, message: "用户名必填", trigger: "blur" }],
         phone: [
           { required: true, message: "手机号", trigger: "blur" },
-          { max: 11, message: "长度不超过11个字符", trigger: "blur" }
+          { max: 11, message: "长度不超过11个字符", trigger: "change" }
         ]
       }
     };
