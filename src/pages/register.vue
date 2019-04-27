@@ -1,13 +1,12 @@
 <template>
   <div>
     <div>
-      <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-      <mt-field label="邮箱" placeholder="请输入邮箱" type="email" v-model="email"></mt-field>
-      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
+      <mt-field label="用户名" placeholder="请输入用户名" v-model="form.username"></mt-field>
+      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="form.password"></mt-field>
     </div>
     <div class="btn-group">
-      <mt-button class="mt-btn second" size="small" type="default" plain>登录</mt-button>
-      <mt-button class="mt-btn primary" size="small" type="primary">注册</mt-button>
+      <mt-button class="mt-btn second" size="small" type="default" @click="goLogin" plain>登录</mt-button>
+      <mt-button class="mt-btn primary" size="small" type="primary" @click="onSubmit">注册</mt-button>
     </div>
   </div>
 </template>
@@ -36,6 +35,9 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    goLogin(){
+      this.$router.push('/login')
     }
   }
 };

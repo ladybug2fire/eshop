@@ -20,6 +20,7 @@ import Reviewlist from '@/pages/reviewlist'
 import Publish from '@/components/media/publish'
 import MediaDetail from '@/components/media/mediaDetail'
 import Search from '@/pages/search'
+import store from '@/stores/index'
 Vue.use(Router)
 
 export default new Router({
@@ -40,6 +41,13 @@ export default new Router({
         }, {
           path: 'profile',
           name: 'profile',
+          beforeEnter: (to, from, next) => {
+            if(store.getters.userid){
+              next()
+            }else{
+              next('/login')
+            }
+          },
           component: Profile
         }, {
           path: 'favorite',
@@ -48,6 +56,13 @@ export default new Router({
         }, {
           path: 'profile/orderlist',
           name: 'orderlist',
+          beforeEnter: (to, from, next) => {
+            if(store.getters.userid){
+              next()
+            }else{
+              next('/login')
+            }
+          },
           component: Orderlist
         }, {
           path: 'newpost',

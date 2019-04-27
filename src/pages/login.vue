@@ -1,12 +1,12 @@
 <template>
   <div>
     <div>
-      <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
-      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
+      <mt-field label="用户名" placeholder="请输入用户名" v-model="form.username"></mt-field>
+      <mt-field label="密码" placeholder="请输入密码" type="password" v-model="form.password"></mt-field>
     </div>
     <div class="btn-group">
-      <mt-button class="mt-btn primary" size="small" type="default">登录</mt-button>
-      <mt-button class="mt-btn second" size="small" type="primary" plain>注册</mt-button>
+      <mt-button class="mt-btn primary" size="small" type="default" @click="onSubmit">登录</mt-button>
+      <mt-button class="mt-btn second" size="small" type="primary" plain @click="goSignUp">注册</mt-button>
     </div>
   </div>
 </template>
@@ -35,6 +35,9 @@ export default {
           this.$router.replace('/home')
         }
       });
+    },
+    goSignUp(){
+      this.$router.push('/register')
     }
   }
 };
