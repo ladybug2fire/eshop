@@ -6,9 +6,16 @@
       </router-link>
     </mt-header>
     <div>
-      <el-form size="small" :model="form" ref="form" label-width="100px" class="profile-edit">
+      <el-form
+        size="small"
+        :model="form"
+        ref="form"
+        :rules="rule"
+        label-width="100px"
+        class="profile-edit"
+      >
         <el-form-item label="头像">
-          <my-upload :model="form" prop="avatar" :avatar="true" />
+          <my-upload :model="form" prop="avatar" :avatar="true"/>
         </el-form-item>
         <el-form-item label="昵称" prop="username">
           <el-input v-model="form.username"></el-input>
@@ -23,9 +30,12 @@
         <el-form-item label="生日">
           <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"></el-date-picker>
         </el-form-item>
-       
+
         <el-form-item label="收获地址" prop="address">
           <el-input placeholder="地址" v-model="form.address"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="phone">
+          <el-input placeholder="手机号" v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item label="个人简介" prop="desc">
           <el-input type="textarea" v-model="form.desc"></el-input>
@@ -38,48 +48,49 @@
 
 <script>
 import { updateUser } from "@/api/user";
-import myUpload from "@/components/UploadField.vue"
+import myUpload from "@/components/UploadField.vue";
 
 export default {
- 
-  components:{
+  components: {
     myUpload
   },
   data() {
     return {
-      routes: [
-        { name: "首页", url: "/home" },
-        { name: "个人中心", url: "/profile" },
-        { name: "基础信息" }
-      ],
       form: {
         username: "",
         birthday: "",
         sex: "",
         address: "",
-        desc: ""
+        desc: "",
+        phone: ""
+      },
+      rule: {
+        phone: [
+          { required: true, message: "手机号", trigger: "blur" },
+          { max: 11, message: "长度不超过11个字符", trigger: "blur" }
+        ]
       }
     };
   },
   methods: {
     submitForm(formName) {
-      updateUser(this.form).then(res=>{
+      updateUser(this.form).then(res => {
         let data = res.data;
         this.$message({
           message: data.msg,
           type: data.code === 200 ? "success" : "error"
         });
-        if(data.code === 200){
-          this.$store.commit('logInfo', this.form);
+        if (data.code === 200) {
+          this.$store.commit("logInfo", this.form);
         }
-      })
+      });
       console.log(this.form);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
   },
-  mounted(){
+  mounted() {
     this.form = this.$store.getters.userInfo;
   }
 };
@@ -91,8 +102,8 @@ export default {
   padding-right: 20px;
   text-align: left;
 }
-    .confirm-btn{
-      width: calc(100% - 40px);
-      margin: 20px;
-    }
+.confirm-btn {
+  width: calc(100% - 40px);
+  margin: 20px;
+}
 </style>
