@@ -1,7 +1,7 @@
 import _ from 'lodash'
 export default {
   state: {
-    food: [
+    article: [
       {
         label: '家常菜',
         children: ['凉菜', '家常菜', '素食', '冷菜', '海鲜', '甜点', '面食']
@@ -48,8 +48,8 @@ export default {
 
   },
   getters: {
-    foodoptions (state) {
-      return state.food
+    articleoptions (state) {
+      return state.article
     },
     dietoptions (state) {
       return state.diet

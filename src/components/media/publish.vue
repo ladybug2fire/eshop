@@ -22,6 +22,7 @@
 import E from "wangeditor";
 import {HOST} from '@/config/myconfig'
 import myUpload from "@/components/UploadField.vue"
+import {addArticle} from "@/api/article"
 export default {
   name: "publish",
   data() {
@@ -36,7 +37,7 @@ export default {
   },
   methods:{
     submitForm() {
-      addFood({
+      addArticle({
         ...this.form, 
         username: this.$store.getters.username,
         userid: this.$store.getters.userid,
@@ -45,7 +46,7 @@ export default {
         if(res.data.code === 200){
           this.$notify.success('发布成功')
           setTimeout(() => {
-            this.$router.push('/home')
+            this.$router.push('/discover')
           }, 0);
         }else{
           this.$notify.error({title:'错误了', message:res.data.msg})

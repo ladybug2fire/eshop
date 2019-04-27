@@ -1,7 +1,7 @@
 <template>
   <div>
     <my-bread-crumb :routes="routes"/>
-    <food :list="foods" v-if="foods && foods.length > 0"/>
+    <article :list="articles" v-if="articles && articles.length > 0"/>
     <h3 v-else>这里空空如也</h3>
   </div>
 </template>
@@ -10,15 +10,15 @@
 /**
  * 菜单详情
  */
-import Food from "@/components/Food";
+import Article from "@/components/Article";
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import {getMenu} from '@/api/menu'
-import {searchFood} from '@/api/food'
+import {searchArticle} from '@/api/article'
 import _ from 'lodash'
 export default {
   components: {
     myBreadCrumb,
-    Food
+    Article
   },
   data() {
     return {
@@ -29,7 +29,7 @@ export default {
       ],
       menuid: this.$route.query.id,
       tag: this.$route.query.tag,
-      foods: []
+      articles: []
     };
   },
   watch:{
@@ -40,24 +40,24 @@ export default {
     }
   },
   methods:{
-    getFood(){
+    getArticle(){
       getMenu({params: {id: this.menuid}}).then(res=>{
         if(res.data.code === 200){
-          this.$set(this, 'foods', _.get(res, 'data.data.foods', []))
+          this.$set(this, 'articles', _.get(res, 'data.data.articles', []))
         }
       })
     },
     search(){
       console.log('search')
-      searchFood({params: {tag: this.$route.query.tag}}).then(res=>{
+      searchArticle({params: {tag: this.$route.query.tag}}).then(res=>{
         if(res.data.code === 200){
-          this.$set(this, 'foods', _.get(res, 'data.data', []))
+          this.$set(this, 'articles', _.get(res, 'data.data', []))
         } 
       })
     }
   },
   mounted(){
-    if(this.menuid) this.getFood();
+    if(this.menuid) this.getArticle();
     if(this.tag) this.search()
   }
 };

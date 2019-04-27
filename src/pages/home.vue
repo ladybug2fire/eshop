@@ -8,8 +8,8 @@
 <script>
 // import MainHeader from '@/components/Header.vue'
 // import Slide from '@/components/Slide.vue'
-// import Food from '@/components/Food.vue'
-// import {getList} from '@/api/food'
+// import Article from '@/components/Article.vue'
+// import {getList} from '@/api/article'
 import SideTabs from '@/components/good/SideTabs'
 import mediaItem from '@/components/media/mediaItem'
   export default {

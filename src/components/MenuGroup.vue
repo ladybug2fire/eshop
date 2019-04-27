@@ -28,7 +28,7 @@ export default {
   data(){return {HOST}},
   computed: {
     imageList() {
-      return _.map(_.get(this.data, 'foods'), e=>e.picUrl);
+      return _.map(_.get(this.data, 'articles'), e=>e.picUrl);
     },
     width() {
       const len = this.imageList.length;

@@ -2,10 +2,10 @@
   <div>
     <el-row v-if="list">
       <el-col :span="8" v-for="(o) in list" :key="o._id">
-        <el-card :body-style="{ padding: '0px'}" class="food-item">
+        <el-card :body-style="{ padding: '0px'}" class="article-item">
           <img :src="HOST+o.picUrl" class="image" @click="seeDetail(o)">
           <div style="padding: 14px;">
-            <span>{{o.foodname}}</span>
+            <span>{{o.articlename}}</span>
             <div class="bottom clearfix">
               <time class="time">{{ o.addTime }}</time>
               <time class="time">{{ o.username }}</time>
@@ -42,7 +42,7 @@ export default {
 };
 </script>
 <style>
-.food-item {
+.article-item {
   margin: 10px;
 }
 .time {

@@ -9,8 +9,8 @@
         label-width="100px"
         class="profile-edit"
       >
-        <el-form-item label="菜名" prop="foodname" required>
-          <el-input v-model="form.foodname"></el-input>
+        <el-form-item label="菜名" prop="articlename" required>
+          <el-input v-model="form.articlename"></el-input>
         </el-form-item>
         <el-form-item label="头图" required>
           <my-upload :model="form" prop="picUrl" />
@@ -22,10 +22,10 @@
             <el-radio label="一般"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="菜谱分类" prop="foodtag" required>
-          <el-select v-model="form.foodtag" placeholder="请选择">
+        <el-form-item label="菜谱分类" prop="articletag" required>
+          <el-select v-model="form.articletag" placeholder="请选择">
             <el-option-group
-              v-for="group in foodoptions"
+              v-for="group in articleoptions"
               :key="group.label"
               :label="group.label">
               <el-option
@@ -101,7 +101,7 @@
  */
 import myBreadCrumb from "@/components/user/myBreadCrumb.vue";
 import myUpload from "@/components/UploadField.vue"
-import { addFood } from "@/api/food"
+import { addArticle } from "@/api/article"
 import E from 'wangeditor'
 import {HOST} from '@/config/myconfig'
 export default {
@@ -117,20 +117,20 @@ export default {
         { name: "新建菜谱" }
       ],
       form: {
-        foodname: "",
+        articlename: "",
         delivery: false,
         type: [],
         resource: "",
         desc: "",
         diettags: null,
-        foodtags: null,
+        articletags: null,
       },
       editor: null
     };
   },
   computed:{
-    foodoptions(){
-      return this.$store.getters.foodoptions;
+    articleoptions(){
+      return this.$store.getters.articleoptions;
     },
     dietoptions(){
       return this.$store.getters.dietoptions;
@@ -141,7 +141,7 @@ export default {
       console.log(this.editor.txt.html())
       this.$refs.form.validate((valid)=>{
         if(valid){
-          addFood({
+          addArticle({
             ...this.form, 
             username: this.$store.getters.username,
             userid: this.$store.getters.userid,
@@ -165,7 +165,7 @@ export default {
   },
   mounted(){
     var editor = new E('#editor')
-    editor.customConfig.uploadImgServer = HOST+'/api/food/upload'
+    editor.customConfig.uploadImgServer = HOST+'/api/article/upload'
     editor.customConfig.uploadFileName = 'file'
     editor.customConfig.uploadImgHooks = {
       customInsert: function (insertImg, result, editor) {

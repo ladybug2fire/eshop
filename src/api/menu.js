@@ -1,11 +1,11 @@
 import axios from 'axios'
 import {HOST} from '@/config/myconfig'
-export const addFood = function (params) {
-  return axios.post(`${HOST}/api/menu/addfood`, params)
+export const addArticle = function (params) {
+  return axios.post(`${HOST}/api/menu/addarticle`, params)
 }
 
-export const delFood = function (params) {
-  return axios.get(`${HOST}/api/menu/delFood`, params)
+export const delArticle = function (params) {
+  return axios.get(`${HOST}/api/menu/delArticle`, params)
 }
 
 export const delMenu = function (params) {

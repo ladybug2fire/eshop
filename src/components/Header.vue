@@ -1,5 +1,5 @@
 <template>
-  <div class="food-header">
+  <div class="article-header">
     <div class="logo">
       <router-link to="home">
         <img src="../assets/logo.png" alt>
@@ -28,7 +28,7 @@
 
 <script>
 import userMenu from '@/components/user/userMenu'
-import {searchFood} from '@/api/food'
+import {searchArticle} from '@/api/article'
 export default {
   components:{
     userMenu,
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="less">
-.food-header {
+.article-header {
   height: 129px;
   width: 100%;
   background-color: #b4010f;
