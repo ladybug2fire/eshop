@@ -5,12 +5,15 @@
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
+    
+    <div class="tip-pic">添加头图</div>
+      <my-upload :model="form" prop="picUrl" />
     <div>
-      <mt-field label="标题" placeholder="文章标题" v-model="title"></mt-field>
+      <mt-field label="标题" placeholder="文章标题" v-model="form.title"></mt-field>
     </div>
     <div class="container">
       <div id="editor"></div>
-      <mt-button class="mt-btn primary publish-btn" type="default" plain>发表</mt-button>
+      <mt-button class="mt-btn primary publish-btn" type="default" plain @click="submitForm">发表</mt-button>
     </div>
   </div>
 </template>
@@ -18,16 +21,41 @@
 <script>
 import E from "wangeditor";
 import {HOST} from '@/config/myconfig'
+import myUpload from "@/components/UploadField.vue"
 export default {
   name: "publish",
   data() {
     return {
-      title: null 
+      form: {
+        title: "",
+      }
     }
+  },
+  components:{
+    myUpload
+  },
+  methods:{
+    submitForm() {
+      addFood({
+        ...this.form, 
+        username: this.$store.getters.username,
+        userid: this.$store.getters.userid,
+        detail: this.editor.txt.html()
+        }).then(res=>{
+        if(res.data.code === 200){
+          this.$notify.success('发布成功')
+          setTimeout(() => {
+            this.$router.push('/home')
+          }, 0);
+        }else{
+          this.$notify.error({title:'错误了', message:res.data.msg})
+        }
+      })
+    },
   },
   mounted() {
     var editor = new E("#editor");
-    editor.customConfig.uploadImgServer = HOST + "/api/food/upload";
+    editor.customConfig.uploadImgServer = HOST + "/api/article/upload";
     editor.customConfig.uploadFileName = "file";
     editor.customConfig.uploadImgHooks = {
       customInsert: function(insertImg, result, editor) {
@@ -57,6 +85,9 @@ export default {
 
 <style lang="less">
 .my-publish{
+  .tip-pic{
+    padding: 10px;
+  }
   .header {
     height: 50px;
     background-color: white;
@@ -65,6 +96,7 @@ export default {
     position: fixed;
     width: 100%;
     top:0;
+    z-index: 999;
   }
   padding-top: 50px;
   #editor{
@@ -89,5 +121,4 @@ export default {
     }
   }
 }
-  
 </style>
