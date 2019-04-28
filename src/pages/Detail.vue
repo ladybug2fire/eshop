@@ -72,7 +72,7 @@ export default {
       });
     },
     jumpCart() {
-      this.$router.replace("order");
+      this.$router.replace("/shopcart");
     }
   },
   mounted() {

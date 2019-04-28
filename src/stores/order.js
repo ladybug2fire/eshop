@@ -21,10 +21,10 @@ export default {
     }
   },
   actions: {
-    getOrderList({ state, commit }) {
+    getOrderList({ state, commit, rootState }) {
       list({
         params: {
-          userid: state.userid
+          userid: _.get(rootState, 'user.userInfo._id')
         }
       }).then(res => {
         if (_.get(res, "data.code") === 200) {

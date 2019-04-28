@@ -30,6 +30,7 @@ export default {
           review({
               userid: this.$store.getters.userid,
               username: this.$store.getters.username,
+              avatar: _.get(this.$store, 'getters.userInfo.avatar'),
               id: this.$route.query.id,
               reviews: this.goodlist
           }).then(res=>{
