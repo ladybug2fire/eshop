@@ -13,3 +13,11 @@ export const buy = function (params) {
 export const del = function (params) {
   return axios.get(`${HOST}/api/order/del`, params)
 }
+
+export const get = function (params) {
+  return axios.get(`${HOST}/api/order/get`, params)
+}
+
+export const review = function (params){
+  return axios.post(`${HOST}/api/goodreview/add`, params) 
+}

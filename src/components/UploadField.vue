@@ -6,7 +6,7 @@
     :on-success="onSuccess"
     :before-upload="beforeAvatarUpload"
   >
-    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+    <img v-if="imageUrl" :src="HOST + imageUrl" class="avatar">
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
 </template>
@@ -18,12 +18,13 @@ export default {
   props: ["model", "prop", "avatar"],
   data() {
     return {
+      HOST,
       uploadaction: `${HOST}/api/article/upload`,
     };
   },
   computed:{
     imageUrl(){
-      return HOST + _.get(this.model, this.prop)
+      return _.get(this.model, this.prop)
     }
   },
   methods: {

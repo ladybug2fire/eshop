@@ -21,6 +21,7 @@ import Reviewlist from '@/pages/reviewlist'
 import Publish from '@/components/media/publish'
 import MediaDetail from '@/components/media/mediaDetail'
 import Search from '@/pages/search'
+import ReviewEdit from '@/pages/reviewedit'
 import store from '@/stores/index'
 Vue.use(Router)
 
@@ -43,11 +44,12 @@ export default new Router({
           path: 'profile',
           name: 'profile',
           beforeEnter: (to, from, next) => {
-            if(store.getters.userid){
-              next()
-            }else{
-              next('/login')
-            }
+            next()
+            // if(store.getters.userid){
+            //   next()
+            // }else{
+            //   next('/login')
+            // }
           },
           component: Profile
         }, {
@@ -58,11 +60,12 @@ export default new Router({
           path: 'profile/orderlist',
           name: 'orderlist',
           beforeEnter: (to, from, next) => {
-            if(store.getters.userid){
-              next()
-            }else{
-              next('/login')
-            }
+            next()
+            // if(store.getters.userid){
+            //   next()
+            // }else{
+            //   next('/login')
+            // }
           },
           component: Orderlist
         }, {
@@ -124,20 +127,24 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    }, 
-    {
+    },{
       path: '/home/detail',
       name: 'detail',
       component: Detail
     },{
+      path: '/review/edit',
+      name: 'editreview',
+      component: ReviewEdit
+    },{
       path: '/profile/edit',
       name: 'editprofile',
       beforeEnter: (to, from, next) => {
-        if(store.getters.userid){
-          next()
-        }else{
-          next('/login')
-        }
+        next()
+        // if(store.getters.userid){
+        //   next()
+        // }else{
+        //   next('/login')
+        // }
       },
       component: EditProfile,
     }

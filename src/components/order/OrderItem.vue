@@ -23,7 +23,7 @@
       </div>
       <div class="footer">
         <div class="del-btn btn" @click="del">删除订单</div>
-        <div class="del-btn btn">评价</div>
+        <div class="del-btn btn" v-if="!item.isReview" @click="review">评价</div>
       </div>
     </div>
   </div>
@@ -60,6 +60,14 @@ export default {
             iconClass: "icon icon-error"
           });
         });
+    },
+    review(){
+      this.$router.push({
+        path: '/review/edit',
+        query:{
+          id: this.item._id
+        }
+      })
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="good-item" v-for="i in list" :key="i._id" @click.stop="seeDetail">
+    <div class="good-item" v-for="i in list" :key="i._id" @click.stop="seeDetail(i)">
       <div class="left-container">
         <img class="left-img" :src="HOST+i.picUrl" alt>
       </div>
@@ -47,7 +47,13 @@ export default {
       });
     },
     seeDetail(o) {
-      this.$router.push("/home/detail");
+      console.log(o)
+      this.$router.push({
+        path: "/home/detail",
+        query:{
+          id:o._id
+        } 
+      });
     }
   }
 };

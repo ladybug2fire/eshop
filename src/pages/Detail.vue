@@ -4,29 +4,31 @@
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
-      <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     <div class="header-info">
-      <img class="detail-img" src="@/assets/cake.jpeg" alt>
-      <div class="title">晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕晶莹剔透的草莓蛋糕</div>
+      <img class="detail-img" :src="HOST + goodItem.picUrl" alt>
+      <div class="title">{{goodItem.goodname}}</div>
       <div
         class="desc"
-      >茂密森林中的可爱麋鹿、深蓝海洋中可爱蓝鲸、睡意朦胧中可爱的你。一组美食图片之创意甜点分享，愿你的城市有归途。小编推荐一组萌萌的美食图片之创意甜点，希望你们喜欢，如果还想欣赏更多图片，那就不妨收藏下本站吧。</div>
+      >{{goodItem.desc}}</div>
       <div class="price-info">
         <span class="price">
           ¥
-          <span class="amount">10</span>
+          <span class="amount">{{goodItem.price}}</span>
         </span>
-        <span class="rule">500g/包</span>
+        <span class="rule">{{goodItem.specify}}</span>
       </div>
       <div class="addtion-desc">不支持7天无理由退货</div>
     </div>
-    <div class="review-info">
+    <div class="review-info" v-if="reviewItems.length">
       <div class="card-header">
-        <div class="header-title">商品评论(100)</div>
+        <div class="header-title">商品评论({{reviewItems.length}})</div>
         <div class="header-action">查看更多评论</div>
       </div>
-      <review :data="reviewItem"/>
+      <template v-for="reviewItem in reviewItems">
+        <review :data="reviewItem" :key="reviewItem._id"/>
+      </template>
+      
     </div>
     <div class="footer-bar">
       <div class="cart-info" @click="jumpCart">
@@ -40,18 +42,17 @@
 
 <script>
 import Review from "@/components/Review";
+import {get, review} from '@/api/good'
+import { HOST } from "@/config/myconfig";
+import _ from 'lodash'
 export default {
   components: {
     Review
   },
   data() {
     return {
-      reviewItem: {
-        addTime: "2019-04-17",
-        username: "小米",
-        star: 3.5,
-        desc: "不错不错"
-      },
+      HOST,
+      reviewItems: [],
       goodItem: {}
     };
   },
@@ -73,7 +74,24 @@ export default {
     }
   },
   mounted() {
-    // TODO: 加个打点
+    get({
+      params:{
+        id: this.$route.query.id
+      }
+    }).then(res=>{
+      if(_.get(res, 'data.code') === 200){
+        this.$set(this, 'goodItem', _.get(res, 'data.data'))
+      }
+    })
+    review({
+      params:{
+        id: this.$route.query.id
+      }
+    }).then(res=>{
+      if(_.get(res, 'data.code') === 200){
+        this.$set(this, 'reviewItems', _.get(res, 'data.data'))
+      }
+    })
   }
 };
 </script>
@@ -82,6 +100,8 @@ export default {
 .good-detail {
   background-color: #f8f8f8;
   padding-bottom: 70px;
+  height: calc(100vh - 70px);
+  overflow: scroll;
 }
 
 @sub-color: #8395a7;
