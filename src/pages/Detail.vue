@@ -52,13 +52,15 @@ export default {
   data() {
     return {
       HOST,
-      reviewItems: [],
       goodItem: {}
     };
   },
   computed: {
     goodcount() {
       return this.$store.getters.goodcount;
+    },
+    reviewItems(){
+     return this.$store.getters.goodReviews; 
     }
   },
   methods: {
@@ -83,15 +85,7 @@ export default {
         this.$set(this, 'goodItem', _.get(res, 'data.data'))
       }
     })
-    review({
-      params:{
-        id: this.$route.query.id
-      }
-    }).then(res=>{
-      if(_.get(res, 'data.code') === 200){
-        this.$set(this, 'reviewItems', _.get(res, 'data.data'))
-      }
-    })
+    this.$store.dispatch('getGoodReview', this.$route.query.id)
   }
 };
 </script>

@@ -16,3 +16,7 @@ export const get = function (params) {
 export const review = function(params){
   return axios.get(`${HOST}/api/goodreview/list`, params) 
 }
+
+export const delGoodReview = function(params){
+  return axios.get(`${HOST}/api/goodreview/del`, params) 
+}

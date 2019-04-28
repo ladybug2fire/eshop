@@ -11,12 +11,32 @@
         <div class="review-content">
             {{data.desc}}
         </div>
+        <div v-if="data.userid === userid" class="del-btn" @click="delItem"><span class="iconfont icon-empty_fill"></span>删除</div>
     </div>
 </template>
 
 <script>
+import { MessageBox, Toast } from "mint-ui";
     export default {
         props: ['data'],
+        computed:{
+            userid(){
+                return this.$store.getters.userid
+            }
+        },
+        methods:{
+            delItem(){
+                this.$store.dispatch('delGoodReview', this.data._id).then(res=>{
+                    if (_.get(res, "data.code") === 200) {
+                        this.$store.commit("delGoodReview", this.data._id);
+                        Toast({
+                            message: "删除成功",
+                            iconClass: "icon icon-success"
+                        });
+                    }
+                })
+            }
+        }
     }
 </script>
 
@@ -56,6 +76,11 @@
 .addtime{
     color: #909399;
     font-size: 10px;
+}
+.del-btn{
+    color: #54a0ff;
+    text-align: right;
+    cursor: pointer;
 }
 
 </style>
