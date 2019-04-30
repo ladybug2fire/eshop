@@ -1,7 +1,8 @@
 export default {
   state: {
     userInfo: {
-    }
+    },
+    preRoute: null,
   },
   mutations: {
     logout (state) {
@@ -12,6 +13,15 @@ export default {
     }
   },
   actions: {
+    checkLogin({state}, payload){
+      if(state.userInfo._id){
+        return Promise.resolve(true);
+      }else{
+        state.preRoute = payload.route;
+        payload.router.push('/login')
+        return Promise.resolve(false)
+      }
+    }
   },
   getters: {
     userid (state) {
@@ -22,6 +32,9 @@ export default {
     },
     userInfo (state) {
       return state.userInfo
+    },
+    preRoute(state){
+      return state.preRoute;
     }
   }
 }

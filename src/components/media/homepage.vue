@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <mt-header class="header" title="发现">
-      <mt-button v-if="userid" slot="right" class="iconfont icon-mine post-btn" @click="seeMine"></mt-button>
+    <mt-header class="header" :title="username">
+      <router-link :to="pre||'/profile'" slot="left">
+        <mt-button icon="back"></mt-button>
+      </router-link>
     </mt-header>
     <media-item v-for="i in list" :data="i" :key="i._id"></media-item>
-    <edit-btn />
   </div>
 </template>
 
@@ -24,9 +25,12 @@ export default {
     };
   },
   computed:{
-    userid(){
-      return this.$store.getters.userid;
-    }
+      username(){
+          return this.$route.query.username;
+      },
+      pre(){
+          return this.$route.query.pre;
+      }
   },
   methods: {
     getList() {
@@ -34,15 +38,6 @@ export default {
         let data = res.data;
         if(data.code === 200){
           this.list.push(...data.data);
-        }
-      })
-    },
-    seeMine(){
-      this.$router.push({
-        path: '/discover/homepage',
-        query:{
-          username: '我的发布',
-          pre: '/discover'
         }
       })
     }

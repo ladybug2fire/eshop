@@ -13,7 +13,7 @@
       <div class="iconfont icon-brush_fill edit-profile" @click="toEdit">编辑</div>
     </div>
     <div class="group">
-      <div class="section">
+      <div class="section" @click="seeFavor">
         <span class="iconfont icon-like_fill"></span>我的收藏
       </div>
       <div class="section" @click="seeMoreOrder">
@@ -86,6 +86,15 @@ export default {
     },
     toEdit(){
       this.$router.push('/profile/edit')
+    },
+    seeFavor(){
+      this.$router.push({
+        path: '/discover/homepage',
+        query:{
+          username: '我的收藏',
+          pre: '/profile'
+        }
+      })
     }
   },
   mounted() {

@@ -60,6 +60,17 @@ import { HOST } from "@/config/myconfig";
         return this.$store.getters.reviews;
       }
     },
+    methods:{
+      follow(){
+
+      },
+      checkLogin() {
+        return this.$store.dispatch("checkLogin", {
+          route: this.$route.fullPath,
+          router: this.$router
+        });
+      }
+    },
     mounted(){
       const id = this.$route.query.id;
       getArticle({params: {

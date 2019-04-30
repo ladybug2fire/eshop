@@ -20,6 +20,7 @@ import Cat from '@/pages/cat'
 import Reviewlist from '@/pages/reviewlist'
 import Publish from '@/components/media/publish'
 import MediaDetail from '@/components/media/mediaDetail'
+import homepage from '@/components/media/homepage'
 import Search from '@/pages/search'
 import ReviewEdit from '@/pages/reviewedit'
 import store from '@/stores/index'
@@ -143,6 +144,10 @@ export default new Router({
         // }
       },
       component: EditProfile,
+    },{
+      path: '/discover/homepage',
+      name: '个人',
+      component: homepage
     },{
       path: '/discover/detail',
       name: '详情',

@@ -32,7 +32,7 @@ export default {
         });
         if(data.code === 200){
           this.$store.commit('logInfo', data.data);
-          this.$router.replace('/home')
+          this.$router.replace(this.$store.getters.preRoute || '/home')
         }
       });
     },
