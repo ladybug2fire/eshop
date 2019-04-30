@@ -105,10 +105,6 @@ export default new Router({
           name: '发布文章',
           component: Publish
         },{
-          path: 'discover/detail',
-          name: '详情',
-          component: MediaDetail
-        },{
           path: 'review',
           name: '评论列表',
           component: Reviewlist
@@ -147,6 +143,10 @@ export default new Router({
         // }
       },
       component: EditProfile,
-    }
+    },{
+      path: '/discover/detail',
+      name: '详情',
+      component: MediaDetail
+    },
   ]
 })

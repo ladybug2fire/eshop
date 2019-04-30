@@ -19,3 +19,15 @@ export const getList = function (params) {
 export const searchArticle = function (params) {
   return axios.get(`${HOST}/api/article/search`, params)
 }
+
+export const review = function(params){
+  return axios.post(`${HOST}/api/review/add`, params) 
+}
+
+export const getReviewList = function (params) {
+  return axios.get(`${HOST}/api/review/list`, params)
+}
+
+export const delReview = function (params) {
+  return axios.get(`${HOST}/api/review/del`, params)
+}

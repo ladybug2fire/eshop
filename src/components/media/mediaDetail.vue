@@ -11,28 +11,33 @@
       <div class="title">{{article.title}}</div>
       <div class="author-block">
         <div class="author-name">{{article.username || '匿名作者'}}</div>
-        <div :class="['follow-btn', {'active': active}]" @click="active = !active">{{active?'已关注':'关注'}}</div>
+        <div v-if="article.username && article.userid != userid" :class="['follow-btn', {'active': active}]" @click="active = !active">{{active?'已关注':'关注'}}</div>
       </div>
       <div class="content" v-html="article.detail">
       </div>
     </div>
     <div class="review-info">
       <div class="card-header">
-        <div class="header-title">评论(100)</div>
+        <div class="header-title">评论({{reviews.length}})</div>
         <div class="header-action">查看更多评论</div>
       </div>
-      <review :data="reviewItem"/>
+      <template v-for="reviewItem in reviews">
+        <review :data="reviewItem" :key="reviewItem._id"/>
+      </template>
     </div>
+    <review-footer :articleid="article._id"/>
   </div>
 </template>
 
 <script>
-import Review from "@/components/Review"
+import Review from "@/components/media/review"
+import reviewFooter from '@/components/media/reviewFooter'
 import {getArticle} from '@/api/article'
 import { HOST } from "@/config/myconfig";
   export default {
     components:{
       Review,
+      reviewFooter
     },
     data() {
       return {
@@ -47,12 +52,22 @@ import { HOST } from "@/config/myconfig";
         active: false,
       }
     },
+    computed:{
+      userid(){
+        return this.$store.getters.userid;
+      },
+      reviews(){
+        return this.$store.getters.reviews;
+      }
+    },
     mounted(){
+      const id = this.$route.query.id;
       getArticle({params: {
-        id: this.$route.query.id
+        id,
       }}).then(res=>{
         this.$set(this, 'article', res.data.data)
       })
+      this.$store.dispatch('getReviewList', id)
     }
   }
 </script>
@@ -61,6 +76,9 @@ import { HOST } from "@/config/myconfig";
 .good-detail{
   background-color: #f8f8f8;
   padding-bottom: 70px;
+  position: relative;
+  height: 100vh;
+  overflow: scroll;
   .content{
     padding: 10px 20px;
   }
