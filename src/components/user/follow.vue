@@ -6,9 +6,10 @@
       </router-link>
     </mt-header>
     <div>
-      <div class="user-item" v-for="item in list" :key="item._id" :item="item">
-          <img class="avatar" :src="HOST+item.avatar" alt="">
-          <div>{{item.username}}</div>
+      <div class="user-item" v-for="(item, i) in list" :key="item._id" :item="item">
+        <img class="avatar" :src="HOST+item.avatar" alt>
+        <div>{{item.username}}</div>
+        <button class="unfollow" @click.stop="unFollow(item._id, i)">取消关注</button>
       </div>
     </div>
   </div>
@@ -16,28 +17,52 @@
 
 <script>
 import { HOST } from "@/config/myconfig";
-import { myfollow } from "@/api/article";
-import _ from 'lodash'
+import { myfollow, follow } from "@/api/article";
+import _ from "lodash";
 export default {
   data() {
-      return {
-          list: []
+    return {
+      HOST,
+      list: []
+    };
+  },
+  methods:{
+      unFollow(userid,i){
+        follow({
+          id: this.$store.getters.userid,
+          userid: userid,
+          like: false
+        }).then(res => {
+          if (_.get(res, "data.code") == 200) {
+            this.$store.commit('follow', {
+                id: this.userid,
+                like: false
+            })
+            this.$delete(this.list, i)
+          } else {
+            Toast({
+              message: "收藏失败",
+            });
+          }
+        });
       }
   },
-    mounted(){
-        myfollow({
-            id: this.$store.getters.userid
-        }).then(res=>{
-            if(_.get(res, 'data.code')==200){
-                this.$set(this, 'list', _.get(res, 'data.data'))
-            }
-        })
-    }
+  mounted() {
+    myfollow({
+      params: {
+        id: this.$store.getters.userid
+      }
+    }).then(res => {
+      if (_.get(res, "data.code") == 200) {
+        this.$set(this, "list", _.get(res, "data.data"));
+      }
+    });
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.follow-list{
+.follow-list {
   padding-top: 50px;
   .header {
     height: 50px;
@@ -48,8 +73,20 @@ export default {
     color: black;
     border-bottom: 1px solid #ebeef5;
   }
-  .useritem{
-      border-bottom: 1px solid #F2F6FC;
+  .user-item {
+    border-bottom: 1px solid #f2f6fc;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    .avatar {
+      height: 30px;
+      width: 30px;
+      border-radius: 30px;
+      margin-right: 20px;
+    }
+    .unfollow{
+        color:turquoise;
+    }
   }
 }
 </style>

@@ -61,7 +61,7 @@ import { HOST } from "@/config/myconfig";
       doFollow(){
         follow({
           id: this.$store.getters.userid,
-          articleid: this.articleid,
+          userid: this.article.userid,
           like: !this.active
         }).then(res => {
           if (_.get(res, "data.code") == 200) {

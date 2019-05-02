@@ -19,6 +19,7 @@
 import GoodItem from "@/components/good/GoodItem";
 import _ from "lodash";
 import { search } from "@/api/good";
+import {history, addHistory, clearHistory} from '@/api/user'
 export default {
   components: {
     GoodItem
@@ -26,6 +27,9 @@ export default {
   computed:{
       pre(){
           return this.$route.query.pre
+      },
+      userid(){
+        return this.$store.getters.userid
       }
   },
   data() {
@@ -35,7 +39,11 @@ export default {
     };
   },
   methods: {
+    clear(){
+      
+    },
     doSearch() {
+      
       search({
         params: {
           tag: this.value
@@ -48,6 +56,15 @@ export default {
     input: _.debounce(function(v) {
       if (v) this.doSearch();
     }, 300)
+  },
+  mounted(){
+    history({
+      params:{
+        id: this.userid
+      }
+    }).then(res=>{
+      console.log(res)
+    })
   }
 };
 </script>

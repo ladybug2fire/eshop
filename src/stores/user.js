@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import {history, addHistory, clearHistory} from '@/api/user'
 export default {
   state: {
     userInfo: {
@@ -44,6 +45,25 @@ export default {
         payload.router.push('/login')
         return Promise.resolve(false)
       }
+    },
+    addHistory({state}, payload){
+      addHistory({
+        params:{
+          id: state.userInfo._id,
+          key: payload
+        }
+      }).then(res=>{
+
+      })
+    },
+    clearHistory({state}){
+      clearHistory({
+        params:{
+          id: state.userInfo._id
+        }
+      }).then(res=>{
+        
+      })
     }
   },
   getters: {

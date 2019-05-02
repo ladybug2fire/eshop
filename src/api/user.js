@@ -19,3 +19,15 @@ export const login = function (params) {
 export const updateUser = function (params) {
   return axios.post(`${HOST}/api/updateUser`, params)
 }
+
+export const history = function(params){
+  return axios.get(`${HOST}/api/history`, params)
+}
+
+export const addHistory = function(params){
+  return axios.get(`${HOST}/api/history/add`, params)
+}
+
+export const clearHistory = function(params){
+  return axios.get(`${HOST}/api/history/clear`, params)
+}

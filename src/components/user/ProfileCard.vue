@@ -19,7 +19,7 @@
       <div class="section" @click="seeMoreOrder">
         <span class="iconfont icon-icon"></span>我的订单
       </div>
-      <div class="section">
+      <div class="section" @click="seeFollow">
         <span class="iconfont icon-label_fill"></span>我的关注
       </div>
     </div>
@@ -29,13 +29,6 @@
         <span class="seemore" @click="seeMoreOrder">查看更多</span>
       </div>
       <order-item v-for="item in orderlist" :key="item._id" :item="item"></order-item>
-    </div>
-    <div class="profile-section">
-      <div class="section-title">
-        我的收藏
-        <span class="seemore">查看更多</span>
-      </div>
-      <order-item></order-item>
     </div>
     <mt-button class="mt-btn primary logout-btn" type="danger" @click="logout">退出登录</mt-button>
   </div>
@@ -86,6 +79,9 @@ export default {
     },
     toEdit(){
       this.$router.push('/profile/edit')
+    },
+    seeFollow(){
+     this.$router.push('/follow') 
     },
     seeFavor(){
       this.$router.push({
