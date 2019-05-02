@@ -25,7 +25,7 @@
         <div class="header-title">商品评论({{reviewItems.length}})</div>
         <div class="header-action" @click="seeMoreReview">查看更多评论</div>
       </div>
-      <template v-for="reviewItem in reviewItems">
+      <template v-for="reviewItem in reviewItems.slice(0,3)">
         <review :data="reviewItem" :key="reviewItem._id"/>
       </template>
       
