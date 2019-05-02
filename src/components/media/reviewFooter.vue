@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { review } from "@/api/article";
+import { review, favor } from "@/api/article";
 import { MessageBox, Toast } from "mint-ui";
 import _ from "lodash";
 export default {
@@ -27,7 +27,19 @@ export default {
   },
   methods: {
     favor() {
-        
+      favor({
+        id: this.$store.getters.userid,
+        articleid: this.articleid,
+        like: !this.like
+      }).then(res => {
+        if (_.get(res, "data.code") == 200) {
+          this.like = !this.like;
+        } else {
+          Toast({
+            message: "收藏失败",
+          });
+        }
+      });
     },
     async doReview() {
       if (!(await this.checkLogin())) {
@@ -61,7 +73,7 @@ export default {
         router: this.$router
       });
     }
-  }
+  },
 };
 </script>
 

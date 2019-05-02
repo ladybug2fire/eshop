@@ -7,7 +7,7 @@
       </div>
       <div class="container">
         <div class="img-list">
-          <img :src="HOST+g.picUrl" alt v-for="g in item.goods" :key="g && g._id">
+          <img :src="HOST+g.picUrl" alt v-for="g in item.goods" @click="seeDetail(g.goodid)" :key="g && g._id">
         </div>
         <div class="count">共{{item.goods.length}}个</div>
       </div>
@@ -60,6 +60,14 @@ export default {
             iconClass: "icon icon-error"
           });
         });
+    },
+    seeDetail(goodid){
+      this.$router.push({
+        path: '/home/detail',
+        query:{
+          id: goodid
+        }
+      }) 
     },
     review(){
       this.$router.push({

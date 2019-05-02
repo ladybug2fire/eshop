@@ -31,3 +31,11 @@ export const getReviewList = function (params) {
 export const delReview = function (params) {
   return axios.get(`${HOST}/api/review/del`, params)
 }
+
+export const view = function (params) {
+  return axios.get(`${HOST}/api/article/view`, params)
+}
+
+export const favor = function (params) {
+  return axios.post(`${HOST}/api/article/favor`, params)
+}

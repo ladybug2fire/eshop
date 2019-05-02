@@ -12,7 +12,7 @@
     </div>
     <div class="title">{{data.title}}</div>
     <div class="footer">
-      <div>浏览{{1813}}</div>
+      <div>浏览{{data.views}}</div>
       <div @click.stop="sheetVisible=true">
         <span class="iconfont icon-send"></span>分享
       </div>

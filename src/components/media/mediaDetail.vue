@@ -16,7 +16,7 @@
       <div class="content" v-html="article.detail">
       </div>
     </div>
-    <div class="review-info">
+    <div class="review-info" v-if="reviews.length">
       <div class="card-header">
         <div class="header-title">评论({{reviews.length}})</div>
         <div class="header-action">查看更多评论</div>
@@ -32,7 +32,7 @@
 <script>
 import Review from "@/components/media/review"
 import reviewFooter from '@/components/media/reviewFooter'
-import {getArticle} from '@/api/article'
+import {getArticle, view} from '@/api/article'
 import { HOST } from "@/config/myconfig";
   export default {
     components:{
@@ -77,6 +77,11 @@ import { HOST } from "@/config/myconfig";
         id,
       }}).then(res=>{
         this.$set(this, 'article', res.data.data)
+      })
+      view({
+        params: {
+          id,
+        }
       })
       this.$store.dispatch('getReviewList', id)
     }
