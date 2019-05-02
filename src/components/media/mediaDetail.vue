@@ -42,12 +42,6 @@ import { HOST } from "@/config/myconfig";
     data() {
       return {
         HOST,
-        reviewItem: {
-            addTime: '2019-04-17',
-            username: '小米',
-            star: 3.5,
-            desc: '不错不错',
-        },
         article: {},
         active: false,
       }

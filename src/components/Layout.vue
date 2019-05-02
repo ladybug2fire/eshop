@@ -14,14 +14,10 @@
 </template>
 
 <script>
-// import MyHeader from "@/components/Header";
-// import MainMenu from "@/components/menu/MainMenu";
 import CartBtn from '@/components/good/CartBtn'
 import _ from 'lodash'
 export default {
   components: {
-    // MyHeader,
-    // MainMenu,
     CartBtn
   },
   watch:{

@@ -39,3 +39,7 @@ export const view = function (params) {
 export const favor = function (params) {
   return axios.post(`${HOST}/api/article/favor`, params)
 }
+
+export const myfavor = function (params) {
+  return axios.post(`${HOST}/api/article/myfavor`, params)
+}
