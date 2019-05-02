@@ -83,10 +83,6 @@ export default new Router({
           name: '发现',
           component: Discover,
         },{
-          path: 'discover/publish',
-          name: '发布文章',
-          component: Publish
-        },{
           path: 'review',
           name: '评论列表',
           component: Reviewlist
@@ -137,6 +133,10 @@ export default new Router({
       path: '/follow',
       name: 'follow',
       component: follow
+    },{
+      path: '/discover/publish',
+      name: '发布文章',
+      component: Publish
     },
   ]
 })

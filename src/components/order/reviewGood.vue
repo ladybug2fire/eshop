@@ -7,7 +7,7 @@
     <div class="star">
         <el-rate v-model="item.star"></el-rate>
     </div>
-    <mt-field placeholder="评价内容" type="textarea" rows="4" v-model="item.desc"></mt-field>
+    <mt-field placeholder="评价内容" type="textarea" rows="4" v-model="item.review"></mt-field>
   </div>
 </template>
 

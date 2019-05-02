@@ -42,7 +42,8 @@ export default {
         path: '/discover/homepage',
         query:{
           username: '我的发布',
-          pre: '/discover'
+          pre: '/discover',
+          type: 'mine'
         }
       })
     }

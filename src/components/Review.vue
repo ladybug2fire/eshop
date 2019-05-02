@@ -8,7 +8,7 @@
       <div class="addtime">{{data.addTime}}</div>
     </div>
     <el-rate v-model="data.star" disabled></el-rate>
-    <div class="review-content">{{data.desc}}</div>
+    <div class="review-content">{{data.review}}</div>
     <div v-if="data.userid === userid" class="del-btn" @click="delItem">
       <span class="iconfont icon-empty_fill"></span>删除
     </div>

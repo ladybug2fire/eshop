@@ -6,7 +6,9 @@
       </router-link>
     </mt-header>
     <div>
-      <div class="user-item" v-for="(item, i) in list" :key="item._id" :item="item">
+      <div class="user-item" v-for="(item, i) in list" :key="item._id" :item="item"
+        @click="seeSomeOne(item._id, item)"
+      >
         <img class="avatar" :src="HOST+item.avatar" alt>
         <div>{{item.username}}</div>
         <button class="unfollow" @click.stop="unFollow(item._id, i)">取消关注</button>
@@ -27,6 +29,17 @@ export default {
     };
   },
   methods:{
+      seeSomeOne(userid, user){
+          this.$router.push({
+              path: '/discover/homepage',
+              query:{
+                  type: 'somebody',
+                  id: userid,
+                  title: user.username,
+                  pre: '/follow'
+              }
+          })
+      },
       unFollow(userid,i){
         follow({
           id: this.$store.getters.userid,
@@ -35,7 +48,7 @@ export default {
         }).then(res => {
           if (_.get(res, "data.code") == 200) {
             this.$store.commit('follow', {
-                id: this.userid,
+                id: userid,
                 like: false
             })
             this.$delete(this.list, i)

@@ -1,7 +1,7 @@
 <template>
   <div class="good-detail">
     <mt-header class="header" title="文章详情">
-      <router-link to="/discover" slot="left">
+      <router-link :to="pre || '/discover'" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>
@@ -47,6 +47,9 @@ import { HOST } from "@/config/myconfig";
       }
     },
     computed:{
+      pre(){
+        return this.$route.query.pre;
+      },
       userid(){
         return this.$store.getters.userid;
       },
@@ -67,7 +70,7 @@ import { HOST } from "@/config/myconfig";
           if (_.get(res, "data.code") == 200) {
               this.active = !this.active
             this.$store.commit('follow', {
-                id: this.articleid,
+                id:  this.article.userid,
                 like: this.active
             })
           } else {
@@ -86,11 +89,12 @@ import { HOST } from "@/config/myconfig";
     },
     mounted(){
       const id = this.$route.query.id;
-      this.active = _.includes(this.follows, id);
       getArticle({params: {
         id,
       }}).then(res=>{
         this.$set(this, 'article', res.data.data)
+        console.log(res.data.data.userid, this.follows)
+        this.active = _.includes(this.follows, _.get(res, 'data.data.userid'));
       })
       view({
         params: {

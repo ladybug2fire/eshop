@@ -13,6 +13,7 @@
 
 <script>
 import { login } from "@/api/user";
+import { MessageBox, Toast } from "mint-ui";
 export default {
   data() {
     return {
@@ -26,9 +27,9 @@ export default {
     onSubmit() {
       login(this.form).then(res => {
         let data = res.data;
-        this.$message({
+        Toast({
           message: data.msg,
-          type: data.code === 200 ? "success" : "error"
+          iconClass: "icon icon-success"
         });
         if(data.code === 200){
           this.$store.commit('logInfo', data.data);

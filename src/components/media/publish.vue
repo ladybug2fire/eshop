@@ -23,6 +23,7 @@ import E from "wangeditor";
 import {HOST} from '@/config/myconfig'
 import myUpload from "@/components/UploadField.vue"
 import {addArticle} from "@/api/article"
+import { MessageBox, Toast } from "mint-ui";
 export default {
   name: "publish",
   data() {
@@ -45,12 +46,17 @@ export default {
         detail: this.editor.txt.html()
         }).then(res=>{
         if(res.data.code === 200){
-          this.$notify.success('发布成功')
+          Toast({
+            message: "发布成功",
+            iconClass: "icon icon-success"
+          });
           setTimeout(() => {
             this.$router.push('/discover')
           }, 0);
         }else{
-          this.$notify.error({title:'错误了', message:res.data.msg})
+          Toast({
+            message: "错误了",
+          });
         }
       })
     },
@@ -112,7 +118,7 @@ export default {
     padding: 0 10px;
   }
   .mt-btn.publish-btn{
-    margin-top: 10px;
+    margin: 10px 0;
     padding: 0 10px;
     box-sizing: border-box;
     width: 100%;

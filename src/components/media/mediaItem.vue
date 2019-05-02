@@ -17,12 +17,16 @@
         <span class="iconfont icon-send"></span>分享
       </div>
     </div>
+    <div v-if="data.userid === userid" class="del-btn" @click.stop="delItem(data._id)">
+      <span class="iconfont icon-empty_fill"></span>删除
+    </div>
     <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
   </div>
 </template>
 
 <script>
 import { HOST } from "@/config/myconfig";
+import {delArticle} from '@/api/article'
 export default {
   props: ['data'],
   data() {
@@ -39,14 +43,31 @@ export default {
       sheetVisible: false,
     };
   },
+  computed:{
+    userid(){
+      return this.$store.getters.userid;
+    }
+  },
   methods: {
     seeDetail() {
       this.$router.replace({
         path: "/discover/detail",
         query: {
-          id: this.data._id
+          id: this.data._id,
+          pre: this.$route.fullPath
         }
       });
+    },
+    delItem(id){
+      delArticle({
+        params:{
+          id,
+        }
+      }).then(res=>{
+        if(res && res.data && res.data.code == 200){
+          this.$emit('update')
+        }
+      })
     }
   }
 };
@@ -70,10 +91,15 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+  .del-btn{
+    text-align: right;
+    color: #54a0ff;
+  }
   border-bottom: 1px solid #ebeef5;
 }
 @width: 100%;
 .header-container {
+
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <mt-header class="header" :title="username">
+    <mt-header class="header" :title="title">
       <router-link :to="pre||'/profile'" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
-    <media-item v-for="i in list" :data="i" :key="i._id"></media-item>
+    <media-item v-for="i in list" :data="i" :key="i._id" @update="refresh"></media-item>
   </div>
 </template>
 
@@ -13,6 +13,7 @@
 import mediaItem from "@/components/media/mediaItem";
 import editBtn from "@/components/media/editBtn";
 import { getList, myfavor, searchArticle } from "@/api/article";
+import _ from "lodash";
 export default {
   components: {
     mediaItem,
@@ -21,13 +22,11 @@ export default {
   data() {
     return {
       value: null,
-      list: []
+      list: [],
+      title: ""
     };
   },
   computed: {
-    username() {
-      return this.$route.query.username;
-    },
     pre() {
       return this.$route.query.pre;
     }
@@ -54,20 +53,42 @@ export default {
       });
     },
     // 获取关注者的文章列表
-    getAuthors(){
-
+    getAuthors(id) {
+      searchArticle({
+        params: {
+          tag: id
+        }
+      }).then(res => {
+        if (_.get(res, "data.code") === 200) {
+          this.$set(this, "list", _.get(res, "data.data"));
+        }
+      });
+    },
+    refresh() {
+      const type = this.$route.query.type;
+      console.log(type);
+      switch (type) {
+        case "favor":
+          this.title = "我的收藏";
+          this.getFavor();
+          break;
+        case "mine":
+          this.title = "我的发布";
+          this.getAuthors(this.$store.getters.userid);
+          break;
+        case "somebody":
+          this.$nextTick(() => {
+            this.$set(this, "title", this.$route.query.title + "的文章");
+          });
+          this.getAuthors(this.$route.query.id);
+          break;
+        default:
+          break;
+      }
     }
   },
   mounted() {
-      const type = this.$route.query.type;
-      switch (type) {
-          case 'favor':
-              this.getFavor()
-              break;
-      
-          default:
-              break;
-      }
+      this.refresh();
   }
 };
 </script>
