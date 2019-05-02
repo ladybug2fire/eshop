@@ -82,10 +82,6 @@ export default new Router({
           path: 'discover',
           name: '发现',
           component: Discover,
-        },{
-          path: 'review',
-          name: '评论列表',
-          component: Reviewlist
         }
       ]
     },
@@ -137,6 +133,10 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    },{
+      path: '/review',
+      name: '评论列表',
+      component: Reviewlist
     }
   ]
 })

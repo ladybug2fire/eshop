@@ -23,7 +23,7 @@
     <div class="review-info" v-if="reviewItems.length">
       <div class="card-header">
         <div class="header-title">商品评论({{reviewItems.length}})</div>
-        <div class="header-action">查看更多评论</div>
+        <div class="header-action" @click="seeMoreReview">查看更多评论</div>
       </div>
       <template v-for="reviewItem in reviewItems">
         <review :data="reviewItem" :key="reviewItem._id"/>
@@ -64,6 +64,12 @@ export default {
     }
   },
   methods: {
+    seeMoreReview(){
+      this.$router.push({
+        path: '/review',
+        pre: this.$route.fullPath,
+        })
+    },
     addGood() {
       this.$message.success("已加入购物车");
       this.$store.commit("addGood", {
