@@ -25,10 +25,10 @@
     </div>
     <div class="profile-section">
       <div class="section-title">
-        我的订单
+        我的订单({{orderlist.length}})
         <span class="seemore" @click="seeMoreOrder">查看更多</span>
       </div>
-      <order-item v-for="item in orderlist" :key="item._id" :item="item"></order-item>
+      <order-item v-for="item in orderlist.slice(0,3)" :key="item._id" :item="item"></order-item>
     </div>
     <mt-button class="mt-btn primary logout-btn" type="danger" @click="logout">退出登录</mt-button>
   </div>
@@ -60,7 +60,7 @@ export default {
   },
   computed:{
       orderlist(){
-          return _.take(this.$store.getters.orderlist, 3);
+          return this.$store.getters.orderlist;
       },
       username(){
         return this.$store.getters.username;

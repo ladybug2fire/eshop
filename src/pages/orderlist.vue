@@ -1,6 +1,6 @@
 <template>
   <div class="order-list">
-    <mt-header class="header" title="我的订单">
+    <mt-header class="header" :title="`我的订单(${orderlist.length})`">
       <router-link to="/profile" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>

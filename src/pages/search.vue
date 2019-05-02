@@ -5,7 +5,7 @@
         <mt-button class="back-btn bar-btn" icon="back"></mt-button>
       </router-link>
       <input class="search-input" type="text" @input="input" v-model="value">
-      <mt-button class="cancel-btn bar-btn" @click="clear">取消</mt-button> 
+      <mt-button class="cancel-btn bar-btn" @click="clear" v-if="value">取消</mt-button> 
     </div>
     <template v-if="value">
       <div>
