@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="page">
+    <mt-header class="header" title="登录">
+    </mt-header>
     <div>
       <mt-field label="用户名" placeholder="请输入用户名" v-model="form.username"></mt-field>
       <mt-field label="密码" placeholder="请输入密码" type="password" v-model="form.password"></mt-field>

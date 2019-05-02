@@ -3,6 +3,7 @@ import {history, addHistory, clearHistory} from '@/api/user'
 export default {
   state: {
     userInfo: {
+      history:[]
     },
     preRoute: null,
   },
@@ -46,6 +47,19 @@ export default {
         return Promise.resolve(false)
       }
     },
+    getHistory({state}){
+      history({
+        params:{
+          id: state.userInfo._id,
+        }
+      }).then(res=>{
+        if(_.get(res, 'data.code')==200){
+          state.userInfo = _.assign(state.userInfo, {
+            history: res.data.data
+          })
+        }
+      })
+    },
     addHistory({state}, payload){
       addHistory({
         params:{
@@ -53,7 +67,11 @@ export default {
           key: payload
         }
       }).then(res=>{
-
+        if(_.get(res, 'data.code')===200){
+          if(!_.includes(state.userInfo.history, payload)){
+            state.userInfo.history.push(payload)
+          }
+        }
       })
     },
     clearHistory({state}){
@@ -62,7 +80,11 @@ export default {
           id: state.userInfo._id
         }
       }).then(res=>{
-        
+        if(_.get(res, 'data.code')===200){
+          state.userInfo = _.assign(state.userInfo, {
+            history: []
+          })
+        }
       })
     }
   },
@@ -81,6 +103,9 @@ export default {
     },
     favorite(state){
       return _.get(state, 'userInfo.favorite', [])
+    },
+    history(state){
+      return _.get(state, 'userInfo.history', []) 
     }
   }
 }

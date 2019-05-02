@@ -86,10 +86,6 @@ export default new Router({
           path: 'review',
           name: '评论列表',
           component: Reviewlist
-        },{
-          path: 'search',
-          name: 'search',
-          component: Search
         }
       ]
     },
@@ -137,6 +133,10 @@ export default new Router({
       path: '/discover/publish',
       name: '发布文章',
       component: Publish
-    },
+    },{
+      path: '/search',
+      name: 'search',
+      component: Search
+    }
   ]
 })

@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="page">
+    <mt-header class="header" title="注册">
+    </mt-header>
     <div>
       <mt-field label="用户名" placeholder="请输入用户名" v-model="form.username"></mt-field>
       <mt-field label="手机号" placeholder="手机号" v-model="form.phone"></mt-field>
