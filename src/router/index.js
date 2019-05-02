@@ -17,6 +17,7 @@ import Reviewlist from '@/pages/reviewlist'
 import Publish from '@/components/media/publish'
 import MediaDetail from '@/components/media/mediaDetail'
 import homepage from '@/components/media/homepage'
+import follow from '@/components/user/follow'
 import Search from '@/pages/search'
 import ReviewEdit from '@/pages/reviewedit'
 import store from '@/stores/index'
@@ -132,6 +133,10 @@ export default new Router({
       path: '/discover/detail',
       name: '详情',
       component: MediaDetail
+    },{
+      path: '/follow',
+      name: 'follow',
+      component: follow
     },
   ]
 })

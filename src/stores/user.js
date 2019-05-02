@@ -1,3 +1,4 @@
+import _ from 'lodash'
 export default {
   state: {
     userInfo: {
@@ -10,6 +11,28 @@ export default {
     },
     logInfo (state, payload) {
       state.userInfo = payload
+    },
+    favor(state, payload){
+      let favorites = _.get(state, 'userInfo.favorite', []);
+      if(payload.like){
+        if(!_.includes(favorites, payload.id)){
+          favorites.push(payload.id)
+        }
+      } else {
+        _.remove(favorites, e=> e === payload.id);
+      }
+      state.userInfo = _.assign(state.userInfo,{favorite: favorites});
+    },
+    follow(state, payload){
+      let follows = _.get(state, 'userInfo.follow', []);
+      if(payload.like){
+        if(!_.includes(follows, payload.id)){
+          follows.push(payload.id)
+        }
+      } else {
+        _.remove(follows, e=> e === payload.id);
+      }
+      state.userInfo = _.assign(state.userInfo,{follow: follows}); 
     }
   },
   actions: {
@@ -35,6 +58,9 @@ export default {
     },
     preRoute(state){
       return state.preRoute;
+    },
+    favorite(state){
+      return _.get(state, 'userInfo.favorite', [])
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="media-item" @click="seeDetail">
     <div class="header-container">
       <div class="username">
-        <img class="avatar" :src="HOST + data.userAvatar" alt>
+        <img class="avatar" :src="HOST + data.avatar" alt>
         {{data.username || "匿名用户" }}
       </div>
       <div class="addtime">{{data.addTime}}</div>

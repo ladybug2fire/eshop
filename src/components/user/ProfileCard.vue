@@ -92,7 +92,8 @@ export default {
         path: '/discover/homepage',
         query:{
           username: '我的收藏',
-          pre: '/profile'
+          pre: '/profile',
+          type: 'favor'
         }
       })
     }

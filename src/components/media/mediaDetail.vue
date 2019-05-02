@@ -10,8 +10,8 @@
       <img class="detail-img" :src="HOST + article.picUrl" alt="">
       <div class="title">{{article.title}}</div>
       <div class="author-block">
-        <div class="author-name">{{article.username || '匿名作者'}}</div>
-        <div v-if="article.username && article.userid != userid" :class="['follow-btn', {'active': active}]" @click="active = !active">{{active?'已关注':'关注'}}</div>
+        <div class="author-name"><img class="avatar" :src="HOST + article.avatar" alt>{{article.username || '匿名作者'}}</div>
+        <div v-if="article.username && article.userid != userid" :class="['follow-btn', {'active': active}]" @click="doFollow">{{active?'已关注':'关注'}}</div>
       </div>
       <div class="content" v-html="article.detail">
       </div>
@@ -32,7 +32,7 @@
 <script>
 import Review from "@/components/media/review"
 import reviewFooter from '@/components/media/reviewFooter'
-import {getArticle, view} from '@/api/article'
+import {getArticle, view, follow} from '@/api/article'
 import { HOST } from "@/config/myconfig";
   export default {
     components:{
@@ -50,13 +50,32 @@ import { HOST } from "@/config/myconfig";
       userid(){
         return this.$store.getters.userid;
       },
+      follows(){
+        return this.$store.getters.userInfo.follow;
+      },
       reviews(){
         return this.$store.getters.reviews;
-      }
+      },
     },
     methods:{
-      follow(){
-
+      doFollow(){
+        follow({
+          id: this.$store.getters.userid,
+          articleid: this.articleid,
+          like: !this.active
+        }).then(res => {
+          if (_.get(res, "data.code") == 200) {
+              this.active = !this.active
+            this.$store.commit('follow', {
+                id: this.articleid,
+                like: this.active
+            })
+          } else {
+            Toast({
+              message: "收藏失败",
+            });
+          }
+        });
       },
       checkLogin() {
         return this.$store.dispatch("checkLogin", {
@@ -67,6 +86,7 @@ import { HOST } from "@/config/myconfig";
     },
     mounted(){
       const id = this.$route.query.id;
+      this.active = _.includes(this.follows, id);
       getArticle({params: {
         id,
       }}).then(res=>{
@@ -103,6 +123,19 @@ import { HOST } from "@/config/myconfig";
   margin: 10px 20px;
   font-size: 14px;
   align-items: center;
+  .author-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .avatar{
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 30px;
+    margin-right: 10px;
+    background-color: white;
+  }
   .follow-btn{
     padding: 5px 10px;
     background: pink;

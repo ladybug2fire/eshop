@@ -40,6 +40,14 @@ export const favor = function (params) {
   return axios.post(`${HOST}/api/article/favor`, params)
 }
 
+export const follow = function (params) {
+  return axios.post(`${HOST}/api/article/follow`, params)
+}
+
 export const myfavor = function (params) {
-  return axios.post(`${HOST}/api/article/myfavor`, params)
+  return axios.get(`${HOST}/api/article/myfavor`, params)
+}
+
+export const myfollow = function (params) {
+  return axios.get(`${HOST}/api/article/myfollow`, params)
 }

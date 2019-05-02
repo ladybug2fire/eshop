@@ -21,9 +21,14 @@ export default {
   props: ["articleid"],
   data() {
     return {
+      review: "",
       like: false,
-      review: ""
     };
+  },
+  computed:{
+      favorite(){
+          return this.$store.getters.favorite;
+      },
   },
   methods: {
     favor() {
@@ -33,7 +38,11 @@ export default {
         like: !this.like
       }).then(res => {
         if (_.get(res, "data.code") == 200) {
-          this.like = !this.like;
+            this.like = !this.like
+          this.$store.commit('favor', {
+              id: this.articleid,
+              like: this.like
+          })
         } else {
           Toast({
             message: "收藏失败",
@@ -74,6 +83,9 @@ export default {
       });
     }
   },
+  mounted(){
+      this.like = _.includes(this.favorite, this.$route.query.id);
+  }
 };
 </script>
 

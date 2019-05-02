@@ -41,6 +41,7 @@ export default {
         ...this.form, 
         username: this.$store.getters.username,
         userid: this.$store.getters.userid,
+        avatar: this.$store.getters.userInfo.avatar,
         detail: this.editor.txt.html()
         }).then(res=>{
         if(res.data.code === 200){
