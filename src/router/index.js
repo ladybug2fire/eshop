@@ -43,11 +43,11 @@ export default new Router({
           name: 'profile',
           beforeEnter: (to, from, next) => {
             next()
-            // if(store.getters.userid){
-            //   next()
-            // }else{
-            //   next('/login')
-            // }
+            if(store.getters.userid){
+              next()
+            }else{
+              next('/login')
+            }
           },
           component: Profile
         }, {
@@ -55,11 +55,11 @@ export default new Router({
           name: 'orderlist',
           beforeEnter: (to, from, next) => {
             next()
-            // if(store.getters.userid){
-            //   next()
-            // }else{
-            //   next('/login')
-            // }
+            if(store.getters.userid){
+              next()
+            }else{
+              next('/login')
+            }
           },
           component: Orderlist
         },{
@@ -110,11 +110,11 @@ export default new Router({
       name: 'editprofile',
       beforeEnter: (to, from, next) => {
         next()
-        // if(store.getters.userid){
-        //   next()
-        // }else{
-        //   next('/login')
-        // }
+        if(store.getters.userid){
+          next()
+        }else{
+          next('/login')
+        }
       },
       component: EditProfile,
     },{

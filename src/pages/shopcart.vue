@@ -28,8 +28,7 @@
 import GoodItem from "@/components/good/CartGoodItem";
 import { HOST } from "@/config/myconfig";
 import { buy } from "@/api/order";
-import { MessageBox } from 'mint-ui';
-import { Toast } from 'mint-ui';
+import { MessageBox, Toast } from "mint-ui"
 import _ from "lodash";
 export default {
   components: {
@@ -83,16 +82,19 @@ export default {
         }).then(res => {
           let data = res.data;
           if (data.code === 200) {
-            this.$notify({
-              title: "购买成功",
-              type: "success"
+            Toast({
+              message: "购买成功",
+              iconClass: "icon icon-success"
             });
             this.$store.commit("clearCart");
           }
         });
       }
     },
-    buyNow() {
+    async buyNow() {
+      if (!(await this.checkLogin())) {
+        return;
+      }
       MessageBox.confirm(`确定购买吗¥ ${this.totalPrice}?`).then(action => {
         console.log(action, 'confirm')
        this.doBuy(); 
@@ -101,6 +103,12 @@ export default {
           message: '已取消',
           iconClass: 'icon icon-error'
         });
+      });
+    },
+    checkLogin() {
+      return this.$store.dispatch("checkLogin", {
+        route: this.$route.fullPath,
+        router: this.$router
       });
     }
   }

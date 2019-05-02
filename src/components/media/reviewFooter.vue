@@ -31,7 +31,10 @@ export default {
       },
   },
   methods: {
-    favor() {
+    async favor() {
+      if (!(await this.checkLogin())) {
+        return;
+      }
       favor({
         id: this.$store.getters.userid,
         articleid: this.articleid,
