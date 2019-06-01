@@ -6,6 +6,7 @@ export default {
       history:[]
     },
     preRoute: null,
+    address: null,
   },
   mutations: {
     logout (state) {
@@ -35,6 +36,9 @@ export default {
         _.remove(follows, e=> e === payload.id);
       }
       state.userInfo = _.assign(state.userInfo,{follow: follows}); 
+    },
+    choseAddress(state, payload){
+      state.address = payload.item
     }
   },
   actions: {
@@ -106,6 +110,9 @@ export default {
     },
     history(state){
       return _.get(state, 'userInfo.history', []) 
+    },
+    address(state){
+      return state.address;
     }
   }
 }

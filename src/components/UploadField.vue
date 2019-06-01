@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       HOST,
-      uploadaction: `${HOST}/api/article/upload`,
+      uploadaction: `${HOST}/api/upload`,
     };
   },
   computed:{

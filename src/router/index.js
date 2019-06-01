@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/components/Layout'
-import Home from '@/pages/home'
 import Login from '@/pages/login'
 import Register from '@/pages/register'
 import Profile from '@/components/user/ProfileCard'
@@ -20,6 +19,10 @@ import homepage from '@/components/media/homepage'
 import follow from '@/components/user/follow'
 import Search from '@/pages/search'
 import ReviewEdit from '@/pages/reviewedit'
+import Buy from '@/pages/buy'
+import AddressEdit from '@/pages/address/edit'
+import AddressList from '@/pages/address/list'
+import MyFavor from '@/pages/myfavor'
 import store from '@/stores/index'
 Vue.use(Router)
 
@@ -82,7 +85,7 @@ export default new Router({
           path: 'discover',
           name: '发现',
           component: Discover,
-        }
+        },
       ]
     },
     {
@@ -137,6 +140,25 @@ export default new Router({
       path: '/review',
       name: '评论列表',
       component: Reviewlist
+    },{
+      path: '/buy',
+      name: '购买',
+      component: Buy
+    },
+    {
+      path: '/address',
+      name: '地址列表',
+      component: AddressList
+    },
+    {
+      path: '/address/edit',
+      name: '地址编辑',
+      component: AddressEdit
+    },
+    {
+      path: '/myfavor',
+      name: '我的收藏',
+      component: MyFavor
     }
   ]
 })

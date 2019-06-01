@@ -23,11 +23,6 @@
         <div class="tag-section">
           <el-tag type="info" class="tag" v-for="k in hot" :key="k" @click="doSearch(k)">{{k}}</el-tag>
         </div>
-        <h4 v-if="history.length" >历史搜索</h4>
-        <div class="tag-section">
-          <el-tag type="info" class="tag" v-for="k in history" :key="k" @click="doSearch(k)">{{k}}</el-tag>
-          <div v-if="history.length" @click="clearHistory" class="iconfont icon-empty_fill">清空</div>
-        </div>
       </div>
     </template>
   </div>
@@ -46,12 +41,6 @@ export default {
       pre(){
           return this.$route.query.pre
       },
-      userid(){
-        return this.$store.getters.userid
-      },
-      history(){
-        return this.$store.getters.history
-      }
   },
   data() {
     return {
@@ -61,9 +50,6 @@ export default {
     };
   },
   methods: {
-    clearHistory(){
-      this.$store.dispatch('clearHistory')
-    },
     clear(){
       this.value = null;
       this.doSearch();
@@ -71,7 +57,6 @@ export default {
     doSearch(key) {
       if(key)this.$set(this, 'value', key);
       if(!this.value)return;
-      this.$store.dispatch('addHistory', this.value)
       search({
         params: {
           tag: this.value
@@ -89,9 +74,6 @@ export default {
       if (v) this.doSearch();
     }, 300)
   },
-  mounted(){
-    this.$store.dispatch('getHistory')
-  }
 };
 </script>
 

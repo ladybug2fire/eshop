@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <mt-header class="header" title="个人中心">
-        <router-link to="/profile" slot="left">
+        <router-link :to="pre" slot="left">
             <mt-button icon="back"></mt-button>
         </router-link>
         <mt-button class="post-btn" type="primary" slot="right" @click="publish">发表</mt-button>
@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       goodlist: [],
+      pre: this.$route.query.pre || '/profile'
     };
   },
   methods:{

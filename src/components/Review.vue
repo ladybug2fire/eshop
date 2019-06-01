@@ -2,8 +2,8 @@
   <div class="review-item">
     <div class="review-container">
       <div class="username">
-        <img class="avatar" :src="HOST + data.avatar" alt>
-        {{data.username || "匿名用户" }}
+        <img class="avatar" :src="HOST + data && data.user &&data.user.avatar" alt>
+        {{data && data.user &&data.user.username || "匿名用户" }}
       </div>
       <div class="addtime">{{data.addTime}}</div>
     </div>
@@ -71,6 +71,7 @@ export default {
     object-fit: cover;
     border-radius: @size;
     margin-right: 10px;
+    background-color: #f8f8f8;
   }
 }
 .username {

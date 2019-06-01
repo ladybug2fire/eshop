@@ -2,12 +2,12 @@
   <div>
     <div class="order-item" v-if="item">
       <div class="header">
-        <div class="order-no">订单编号: {{item && item._id}}</div>
-        <div class="order-status">交易成功</div>
+        <div class="order-no"></div>
+        <div class="order-status">现在下单</div>
       </div>
       <div class="container">
         <div class="img-list">
-          <img :src="HOST+g.picUrl" alt v-for="g in item.goods" @click="seeDetail(g._id)" :key="g && g._id">
+          <img :src="HOST+g.picUrl" alt v-for="g in item.goods" @click="seeDetail(g.goodid)" :key="g && g._id">
         </div>
         <div class="count">共{{item.goods.length}}个</div>
       </div>
@@ -20,10 +20,6 @@
             <span class="price-amount">{{item.price}}</span>
           </div>
         </div>
-      </div>
-      <div class="footer">
-        <div class="del-btn btn" @click="del">删除订单</div>
-        <div class="del-btn btn" v-if="!item.isReview" @click="review">评价</div>
       </div>
     </div>
   </div>

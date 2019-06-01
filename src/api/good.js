@@ -20,3 +20,11 @@ export const review = function(params){
 export const delGoodReview = function(params){
   return axios.get(`${HOST}/api/goodreview/del`, params) 
 }
+
+export const favor = function(params){
+  return axios.get(`${HOST}/api/good/favor`, params) 
+}
+
+export const myfavor = function(params){
+  return axios.get(`${HOST}/api/good/myfavor`, params) 
+}

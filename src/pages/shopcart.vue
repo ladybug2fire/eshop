@@ -13,7 +13,7 @@
             </div>
             <div class="tip">点击结算进去购买哟</div>
           </div>
-          <div class="action-btn" @click="buyNow">去结算</div>
+          <div class="action-btn" @click="buyNow">去下单</div>
         </div>
       </div>
     </div>
@@ -66,51 +66,14 @@ export default {
         count
       });
     },
-    doBuy() {
-      let goods = _.map(_.cloneDeep(this.goodlist), e => {
-        e.goodid = e._id;
-        delete e._id;
-        return e;
-      });
-      if (!_.isEmpty(goods)) {
-        buy({
-          goods,
-          price: this.totalPrice,
-          username: this.username,
-          userid: this.userid,
-          addTime: new Date().toLocaleString()
-        }).then(res => {
-          let data = res.data;
-          if (data.code === 200) {
-            Toast({
-              message: "购买成功",
-              iconClass: "icon icon-success"
-            });
-            this.$store.commit("clearCart");
-          }
-        });
-      }
-    },
-    async buyNow() {
-      if (!(await this.checkLogin())) {
-        return;
-      }
-      MessageBox.confirm(`确定购买吗¥ ${this.totalPrice}?`).then(action => {
-        console.log(action, 'confirm')
-       this.doBuy(); 
-      }).catch(cancel=>{
-        Toast({
-          message: '已取消',
-          iconClass: 'icon icon-error'
-        });
-      });
-    },
-    checkLogin() {
-      return this.$store.dispatch("checkLogin", {
-        route: this.$route.fullPath,
-        router: this.$router
-      });
-    }
+    buyNow(){
+      this.$router.push({
+        path: '/buy',
+        query:{
+          pre: '/shopcart',
+        }
+      })
+    } 
   }
 };
 </script>

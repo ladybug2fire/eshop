@@ -19,8 +19,8 @@
       <div class="section" @click="seeMoreOrder">
         <span class="iconfont icon-icon"></span>我的订单
       </div>
-      <div class="section" @click="seeFollow">
-        <span class="iconfont icon-label_fill"></span>我的关注
+      <div class="section" @click="seeAddress">
+        <span class="iconfont icon-label_fill"></span>我的地址
       </div>
     </div>
     <div class="profile-section">
@@ -80,12 +80,17 @@ export default {
     toEdit(){
       this.$router.push('/profile/edit')
     },
-    seeFollow(){
-     this.$router.push('/follow') 
+    seeAddress(){
+     this.$router.push({
+       path: '/address',
+       query:{
+         pre: '/profile'
+       }
+      }) 
     },
     seeFavor(){
       this.$router.push({
-        path: '/discover/homepage',
+        path: '/myfavor',
         query:{
           username: '我的收藏',
           pre: '/profile',

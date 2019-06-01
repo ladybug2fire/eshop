@@ -35,6 +35,9 @@
         <mt-badge type="error" class="cart-badge">{{goodcount}}</mt-badge>
         <i class="iconfont icon-gouwuche2"></i>
       </div>
+      <div class="block" @click="favor">
+        <div :class="['iconfont', {'icon-like': !like}, {'icon-like_fill': like}]"></div>
+      </div>
       <div class="action-btn" @click="addGood">加入购物车</div>
     </div>
   </div>
@@ -42,7 +45,8 @@
 
 <script>
 import Review from "@/components/Review";
-import {get, review} from '@/api/good'
+import {get, review, favor, myfavor} from '@/api/good'
+import { Toast } from "mint-ui";
 import { HOST } from "@/config/myconfig";
 import _ from 'lodash'
 export default {
@@ -52,6 +56,7 @@ export default {
   data() {
     return {
       HOST,
+      like: false,
       goodItem: {}
     };
   },
@@ -64,11 +69,41 @@ export default {
     }
   },
   methods: {
+    checkLogin() {
+      return this.$store.dispatch("checkLogin", {
+        route: this.$route.fullPath,
+        router: this.$router
+      });
+    },
+    async favor(){
+      if (!(await this.checkLogin())) {
+        return;
+      }
+      favor({
+        params:{
+          id: this.$store.getters.userid,
+          goodid: this.goodItem._id,
+          like: !this.like
+        }
+      }).then(res => {
+        if (_.get(res, "data.code") == 200) {
+            this.like = !this.like
+          this.$store.commit('favor', {
+              id: this.articleid,
+              like: this.like
+          })
+        } else {
+          Toast({
+            message: "收藏失败",
+          });
+        }
+      });
+    },
     seeMoreReview(){
       this.$router.push({
         path: '/review',
         pre: this.$route.fullPath,
-        })
+      })
     },
     addGood() {
       this.$message.success("已加入购物车");
@@ -79,7 +114,8 @@ export default {
     },
     jumpCart() {
       this.$router.replace("/shopcart");
-    }
+    },
+    
   },
   mounted() {
     get({
@@ -92,6 +128,13 @@ export default {
       }
     })
     this.$store.dispatch('getGoodReview', this.$route.query.id)
+    myfavor({
+        params:{
+            id: this.$store.getters.userid
+        }
+    }).then(res=>{
+      this.$set(this, 'like',  _.findIndex(_.get(res,'data.data.goods'), e=>e._id===this.$route.query.id) > -1);
+    })
   }
 };
 </script>
@@ -192,7 +235,7 @@ export default {
   bottom: 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   .cart-info {
     position: relative;
@@ -222,6 +265,26 @@ export default {
     padding: 0 20px;
     text-align: center;
     line-height: 50px;
+    position: absolute;
+    right: 0;
+  }
+}
+.block {
+  margin: 5px;
+  text-align: center;
+  font-size: 14px;
+  .iconfont {
+    font-size: 25px;
+    &.icon-like_fill {
+      color: pink;
+    }
+  }
+  .btn {
+    color: white;
+    background: pink;
+    padding: 10px 5px;
+    border-radius: 5px;
+    cursor: pointer;
   }
 }
 </style>
