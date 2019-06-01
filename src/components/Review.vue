@@ -2,7 +2,7 @@
   <div class="review-item">
     <div class="review-container">
       <div class="username">
-        <img class="avatar" :src="HOST + data && data.user &&data.user.avatar" alt>
+        <img class="avatar" :src="HOST + data.user.avatar" alt>
         {{data && data.user &&data.user.username || "匿名用户" }}
       </div>
       <div class="addtime">{{data.addTime}}</div>
