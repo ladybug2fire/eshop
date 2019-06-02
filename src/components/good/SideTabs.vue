@@ -18,7 +18,7 @@
 <script>
 import GoodItem from "@/components/good/GoodItem";
 import { types } from "@/util/constants";
-import { search } from "@/api/good";
+import { search , type} from "@/api/good";
 export default {
   components: {
     GoodItem
@@ -26,14 +26,15 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      goodlist: []
+      goodlist: [],
+      tabs: [],
     };
   },
-  computed: {
-    tabs() {
-      return types;
-    }
-  },
+  // computed: {
+  //   tabs() {
+  //     return types;
+  //   }
+  // },
   methods: {
     active(t, i) {
       this.activeIndex = i;
@@ -49,15 +50,18 @@ export default {
     }
   },
   mounted() {
-    search({
-      params: {
-        tag: this.tabs[0]
-      }
-    }).then(res => {
-      if (_.get(res, "data.code") === 200) {
-        this.$set(this, "goodlist", _.get(res, "data.data"));
-      }
-    });
+    type().then(res=>{
+      this.$set(this, 'tabs', res.data.data)
+      search({
+        params: {
+          tag: this.tabs[0]
+        }
+      }).then(res => {
+        if (_.get(res, "data.code") === 200) {
+          this.$set(this, "goodlist", _.get(res, "data.data"));
+        }
+      });
+    })
   }
 };
 </script>

@@ -28,3 +28,7 @@ export const favor = function(params){
 export const myfavor = function(params){
   return axios.get(`${HOST}/api/good/myfavor`, params) 
 }
+
+export const type = function(params){
+  return axios.get(`${HOST}/admin/good/type`, params) 
+}
